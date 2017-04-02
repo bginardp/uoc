@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="/include/head :: head('Altres Recerques')"/>
+<body>
+<div class="container">
+	<th:block th:include="/include/navbar :: navbar"/>
+	<h2 th:text="#{entitats.list.titol}">Llista d'entitats</h2>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-2">
+		<form th:action="@{/precintes}">
+			<div class="form-group">
+			<label for="term">Terme de recerca</label>
+			<input type="text" class="form-control" id="term" name="term" placeholder="introdueix un criteri de recerca"/>
+			</div>
+			<button type="submit" class="btn btn-default" th:text="#{btn.cercar}">Cercar</button>
+		</form>
+		</div>
+	</div> <!-- row -->
+	<div class="row">
+		<table class="table table-bordered">
+		 	<thead>
+		 	<tr>
+		 	<td>Codi</td>
+		 	<td>Data introducció</td>
+		 	<td>Entitat</td>
+		 	<td>Concepte</td>
+		 	<td>Referència</td>
+		 	<td>Data desprecinte</td>
+		 	</tr>
+		 	</thead>
+		 	<tbody>
+		 	<tr>
+		 	<td>11222</td>
+		 	<td>20-11-2016</td>
+		 	<td>Judicial</td>
+		 	<td>Judjat Numero 1</td>
+		 	<td>expedient:123456</td>
+		 	<td></td>
+		 	</tr>
+		 	</tbody>
+		 	<tfoot></tfoot>
+		</table>
+	</div>
+	<th:block th:include="/include/footer :: footer"/>
+</div> <!-- container -->
+</body>
+<th:block th:include="/include/footer-js :: footer-js"/>
+</html>

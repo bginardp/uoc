@@ -1,0 +1,59 @@
+.invoice-title h2, .invoice-title h3 {
+    display: inline-block;
+}
+
+.table > tbody > tr > .no-line {
+    border-top: none;
+}
+
+.table > thead > tr > .no-line {
+    border-bottom: none;
+}
+
+.table > tbody > tr > .thick-line {
+    border-top: 2px solid;
+}
+
+.not-active {
+ color: grey;	
+ pointer-events: none;
+ cursor: default;
+}
+
+.main{
+    margin-top: 50px;
+}
+.main-content {
+/*    background-color:#009edf;*/
+    border: 2px solid #A4A4A4;
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 20px 40px;
+    color: #ccc;
+    text-shadow: none;
+}
+
+.input-group{
+	margin: 20px 0px;
+}
+.input-group-addon {
+    color: #A4A4A4 ;
+    font-size: 17px;
+}
+.login-button{
+    margin: 0px auto;
+    max-width: 200px;;
+    
+}
+
+
+.form-header{
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #A4A4A4;
+    color: #fff;
+    width: 100% ;
+    padding: 20px 0px;
+    border-top-right-radius:10px ;
+    border-top-left-radius:10px 
+}

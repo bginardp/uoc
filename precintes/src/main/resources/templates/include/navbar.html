@@ -1,0 +1,35 @@
+<th:block th:fragment="navbar" xmlns:th="http://www.thymeleaf.org" >
+	<nav class="navbar navbar-inverse navbar-static-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Gestió de precintes</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li th:classappend="${page == 'home' ? 'active' : ''}"> <a  href="#" th:href="@{/}">Home</a></li>
+            <li th:classappend="${page == 'altres' ? 'active' : ''}"><a href="#" th:href="@{/altres}">Altres Recerques</a></li>
+            <li th:classappend="${page == 'admin' ? 'dropdown active' : 'dropdown'}">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrador<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#" th:href="@{/admin/entitats}">Entitats i conceptes</a></li>
+                <li><a href="#" th:href="@{/admin/motius}">Motius de desprecinte</a></li>
+              </ul>
+            </li>
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+             <li><a href="javascript: document.logoutForm.submit()" role="menuitem">Sortir</a></li> 
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+       <input type="submit"/>
+    </form> 
+</th:block>

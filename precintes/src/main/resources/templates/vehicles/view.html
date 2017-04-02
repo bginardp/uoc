@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="/include/head :: head('Consulta vehicle')"/>
+<body>
+<div class="container">
+	<th:block th:include="/include/navbar :: navbar"/>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class=""><strong class="">Vehicle</strong></h4>
+            <div class="box-vehicle">
+                <div class="row">
+                  <div class="col-md-3">
+                            <div class="col-md-4">Matricula:</div>
+                            <div class="col-md-8">3345-FFG</div>
+                    </div>
+                    <div class="col-md-4">
+                          <div class="col-md-5 text-right">Marca i model:</div>
+                          <div class="col-md-7">SEAT LEON</div>
+                    </div>
+                    <div class="col-md-5">
+                         <div class="col-md-4 text-right">Titular:</div>
+                         <div class="col-md-6">JOSE GARCIA PEREZ</div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3" style="margin-top:2rem;">
+                      <div class="col-md-4">
+                        <button class="btn btn-primary">Editar</button>
+                      </div>
+                      <div class="col-md-8">
+                        <strong>Total precintes actius:</strong><span class="badge">2</span>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="col-md-5 text-right">Bastidor:</div>
+                       <div class="col-md-7">QWQWQWQWQW2121212121</div>
+                    </div>
+                    <div class="col-md-5">
+                            <div class="col-md-4 text-right">Domicili</div>
+                            <div class="col-md-8">
+                              <address>
+                              <strong>CE GRANOLLERS num:22 pis:4 porta A</strong><br> Palma</br><br>07004 ILLES BALEARS</br>
+							</address>
+                        </div>
+                    </div>
+                </div>
+            </div>  <!-- well -->
+        </div>
+    </div>
+    <!-- row -->
+    <div class="row">
+        <div class="col-md-12">
+          <h4><strong>Relació de precintes</strong></h4>
+
+            <div class="box-toolbar">
+                <div class="btn-group">
+                    <button class="btn btn-default" type="button">	<em class="glyphicon glyphicon-align-left"></em> Alta precinte</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th>id#</th>
+                        <th>Data introducció</th>
+                        <th>Entitat</th>
+                        <th>Concepte</th>
+                        <th>Data desprecinte</th>
+                        <th>Motiu desprecinte</th>
+                        <th>Acció</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="active">
+                        <td class="">1</td>
+                        <td class="">01/01/2016</td>
+                        <td class="">JUDICIAL</td>
+                        <td class="">JUDJAT 14 DISTRICTE 1</td>
+                        <td class="">01/04/2016</td>
+                        <td class="">DEUTE PAGADA</td>
+                        <td><div class="btn-group">
+		                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    Acció <span class="caret"></span>
+							 </button>
+		                    <ul class="dropdown-menu">
+		                      <li><a href="#">Editar precinte</a></li>
+		                      <li><a href="#">Alta desprecinte</a></li>
+		                      <li><a href="#">Editar Desprecinte</a></li>
+		                      <li role="separator" class="divider"></li>
+		                      <li><a href="#">Anul·lar Desprecinte</a></li>
+		                    </ul>
+		                  </div>
+		                 </td>
+                    </tr>
+                    <tr>
+                        <td class="">2</td>
+                        <td class="">01/01/2014</td>
+                        <td class="">NEG. MULTES</td>
+                        <td class="">DEUTE EXECUTIVA</td>
+                        <td class=""></td>
+                        <td class=""></td>
+                        <td>
+                        <!-- Single button -->
+							<div class="btn-group">
+							  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    Acció <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu">
+							    <li><a href="#">Editar precinte</a></li>
+		                        <li><a href="#">Alta desprecinte</a></li>
+		                        <li><a href="#">Editar Desprecinte</a></li>
+							    <li role="separator" class="divider"></li>
+							    <li><a href="#">Anul·lar Desprecinte</a></li>
+							  </ul>
+							</div>
+		                 </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 col-md-offset-11">
+            <a class="btn btn-primary" th:href="@{/}"  href="#">Enrera</a>
+        </div>
+    </div>
+    <br/>
+	<th:block th:include="/include/footer :: footer"/>
+</div> <!-- container -->
+<th:block th:include="/include/footer-js :: footer-js"/>
+</body>
+</html>

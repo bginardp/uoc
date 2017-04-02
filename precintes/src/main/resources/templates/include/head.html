@@ -1,0 +1,15 @@
+<th:block th:fragment="head(title)" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <title th:utext="${title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="precintes"/>
+    <meta name="author" content="bernat"/>
+    <!-- css: bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <!-- css: datepicker -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/cupertino/jquery-ui.css"/>
+	<!-- css: custom application -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+</head>
+</th:block>
