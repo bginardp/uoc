@@ -57,3 +57,17 @@
     border-top-right-radius:10px ;
     border-top-left-radius:10px 
 }
+
+.box-vehicle{
+	background-color: #D3D3D3;
+}
+
+.box-title{
+	display: block;
+	text-align: center;
+	padding:0.002rem;
+	border-radius: 25px;
+    background: #E0E0E0;
+    height: 65px;
+    margin-bottom:5px;
+}

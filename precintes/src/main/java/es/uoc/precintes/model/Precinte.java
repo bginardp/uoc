@@ -1,7 +1,5 @@
 package es.uoc.precintes.model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -15,8 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import es.uoc.precintes.dto.PrecinteDto;
+import es.uoc.precintes.utils.Convert;
 
-//TODO: Afegir Validacions JSR
 @Entity
 @Table(name = "precintes")
 public class Precinte {
@@ -34,47 +32,48 @@ public class Precinte {
 	@ManyToOne
 	@JoinColumn(name = "usuariId", insertable = false, updatable = false)
 	private Usuari usuari;
+	private String entitatId;
 	@ManyToOne
 	@JoinColumn(name = "entitatId", insertable = false, updatable = false)
 	private Entitat entitat;
+	private String concepteId;
 	@ManyToOne
-	@JoinColumns({ @JoinColumn(name = "entitatId", referencedColumnName = "entitatId"),
-			@JoinColumn(name = "concepteId", referencedColumnName = "id") })
+	@JoinColumns({ @JoinColumn(name = "entitatId", referencedColumnName = "entitatId",insertable = false, updatable = false),
+			@JoinColumn(name = "concepteId", referencedColumnName = "id",insertable = false, updatable = false) })
 	private Concepte concepte;
 	@ManyToOne
 	@JoinColumn(name = "motiuId", insertable = false, updatable = false)
 	private Motiu motiu;
+	private Long vehicleId;
+	@ManyToOne
+	@JoinColumn(name = "vehicleId", insertable = false, updatable = false)
+	private Vehicle vehicle;
 
 	public Precinte() {
 
 	}
-
-	public Precinte(PrecinteDto precinte, Entitat entitat, Concepte concepte, Usuari usuari, Motiu motiu) {
+public Precinte(Date datpre,String referencia, String obspre, Long vehicleId,  String usuariId, String entitatId, String concepteId) {
+	this.datpre=datpre;
+	this.referencia=referencia;
+	this.obspre=obspre;
+	this.vehicleId=vehicleId;
+	this.usuariId=usuariId;
+	this.entitatId=entitatId;
+	this.concepteId=concepteId;
+	
+}
+	public Precinte(PrecinteDto precinte) {
 		this.id = precinte.getId();
 		this.referencia = precinte.getReferencia();
 		this.obspre = precinte.getObspre();
 		this.obsdes = precinte.getObsdes();
-		this.usuari = usuari;
-		this.entitat = entitat;
-		this.concepte = concepte;
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		try {
-			this.datpre = sdf.parse(precinte.getDatpre());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (precinte.getDatdes() != null) {
-			try {
-				this.datdes = sdf.parse(precinte.getDatdes());
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		this.motiu=motiu;
-
-		
+		this.vehicle= Convert.toDao(precinte.getVehicle());
+		this.usuari = Convert.toDao(precinte.getUsuari());
+		this.entitat = Convert.toDao(precinte.getEntitat());
+		this.concepte = Convert.toDao(precinte.getConcepte());
+		this.datpre =precinte.getDatpre();
+		this.datdes = precinte.getDatdes();
+		this.motiu=Convert.toDao(precinte.getMotiu());
 	}
 
 	public Long getId() {
@@ -125,6 +124,12 @@ public class Precinte {
 		this.obsdes = obsdes;
 	}
 
+	public Long getVehicleId() {
+		return vehicleId;
+	}
+	public void setVehicleId(Long vehicleId) {
+		this.vehicleId = vehicleId;
+	}
 	public String getUsuariId() {
 		return usuariId;
 	}
@@ -164,5 +169,25 @@ public class Precinte {
 	public void setMotiu(Motiu motiu) {
 		this.motiu = motiu;
 	}
+	public String getEntitatId() {
+		return entitatId;
+	}
+	public void setEntitatId(String entitatId) {
+		this.entitatId = entitatId;
+	}
+	public String getConcepteId() {
+		return concepteId;
+	}
+	public void setConcepteId(String concepteId) {
+		this.concepteId = concepteId;
+	}
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+	
+	
 
 }

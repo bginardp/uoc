@@ -64,7 +64,7 @@ public class Persona {
 
 
 	public Persona(String nif, String nom, String ll1per, String ll2per, String domicili, String municipi,
-			String provincia, String codpos, String telefono, String email) {
+			String codpos, String provincia,  String telefono, String email) {
 		super();
 		this.nif = nif;
 		this.nom = nom;

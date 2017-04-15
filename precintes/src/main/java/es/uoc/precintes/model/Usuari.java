@@ -6,6 +6,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import es.uoc.precintes.dto.UsuariDto;
+
 @Entity
 @Table(name = "usuaris")
 public class Usuari {
@@ -18,6 +20,11 @@ public class Usuari {
 	private String password;
 
 	public Usuari() {
+	}
+	
+	public Usuari(UsuariDto usuari) {
+		this.id=usuari.getId();
+		this.password=usuari.getPassword();
 	}
 	
 	public Usuari(String id, String password) {

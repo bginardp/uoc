@@ -14,10 +14,12 @@ import org.springframework.stereotype.Component;
 import es.uoc.precintes.jpa.ConcepteRepository;
 import es.uoc.precintes.jpa.EntitatRepository;
 import es.uoc.precintes.jpa.MotiuRepository;
+import es.uoc.precintes.jpa.UsuariRepository;
 import es.uoc.precintes.model.Concepte;
 import es.uoc.precintes.model.ConcepteId;
 import es.uoc.precintes.model.Entitat;
 import es.uoc.precintes.model.Motiu;
+import es.uoc.precintes.model.Usuari;
 
 @Component
 public class AdminDao {
@@ -27,6 +29,8 @@ public class AdminDao {
 	private ConcepteRepository concepteRepository;
 	@Autowired
 	private MotiuRepository motiuRepository;
+	@Autowired
+	private UsuariRepository usuariRepository;
 
 	@PostConstruct
 	private void init() {
@@ -43,6 +47,8 @@ public class AdminDao {
 		concepteRepository.save(new Concepte("RECAP","MULT","Recaptador de multes"));
 		concepteRepository.save(new Concepte("ORGPO","LOCAL","Policia Local"));
 		concepteRepository.save(new Concepte("ORGPO","NACIO","Policia Nacional"));
+		usuariRepository.save(new Usuari("admin","admin"));
+		usuariRepository.save(new Usuari("user","user"));
 	}
 
 	private <T> List<T> convertItToList(Iterable<T> labels) {

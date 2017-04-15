@@ -1,31 +1,28 @@
 package es.uoc.precintes.dto;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
 import es.uoc.precintes.model.Precinte;
+import es.uoc.precintes.utils.Convert;
 
 public class PrecinteDto extends BaseDto{
 	
 	
 	private Long id;
 	@NotNull
-	private String datpre;
+	private Date datpre;
 	private String referencia;
 	private String obspre;
-	private String datdes;
+	private Date datdes;
 	private String obsdes;
+	private VehicleDto vehicle;
 	@NotNull
-	private String usuariId;
-	@NotNull
-	private String concepteId;
-	@NotNull
-	private String concepteDesc;
-	@NotNull
-	private String entitatId;
-	@NotNull
-	private String entitatDesc;
+	private UsuariDto usuari;
+	private ConcepteDto concepte;
+	private EntitatDto entitat;
 	private MotiuDto motiu;
 	
 	
@@ -33,20 +30,23 @@ public class PrecinteDto extends BaseDto{
 		this.id=precinte.getId();
 		this.referencia=precinte.getReferencia();
 		this.obspre=precinte.getObspre();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		this.datpre=sdf.format( precinte.getDatpre());
-		this.datdes=sdf.format(precinte.getDatdes());
+		this.datpre=precinte.getDatpre();
+		this.datdes=precinte.getDatdes();
 		this.obsdes=precinte.getObsdes();
-		this.usuariId=precinte.getUsuariId();
-		this.concepteId=precinte.getConcepte().getId().getId();
-		this.concepteDesc=precinte.getConcepte().getDescripcio();
-		this.entitatId=precinte.getEntitat().getId();
-		this.entitatDesc=precinte.getEntitat().getDescripcio();
-		if (precinte.getMotiu()!=null) {
-			this.motiu=new MotiuDto(precinte.getMotiu());
-		}
-		
-		
+		this.vehicle=Convert.toDto(precinte.getVehicle());
+		this.usuari=Convert.toDto(precinte.getUsuari());
+		this.concepte=Convert.toDto(precinte.getConcepte());
+		this.entitat=Convert.toDto(precinte.getEntitat());
+		this.motiu=Convert.toDto(precinte.getMotiu());
+	
+	}
+
+	public VehicleDto getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(VehicleDto vehicle) {
+		this.vehicle = vehicle;
 	}
 
 	public MotiuDto getMotiu() {
@@ -65,13 +65,7 @@ public class PrecinteDto extends BaseDto{
 		this.id = id;
 	}
 
-	public String getDatpre() {
-		return datpre;
-	}
-
-	public void setDatpre(String datpre) {
-		this.datpre = datpre;
-	}
+	
 
 	public String getReferencia() {
 		return referencia;
@@ -89,14 +83,7 @@ public class PrecinteDto extends BaseDto{
 		this.obspre = obspre;
 	}
 
-	public String getDatdes() {
-		return datdes;
-	}
-
-	public void setDatdes(String datdes) {
-		this.datdes = datdes;
-	}
-
+	
 	public String getObsdes() {
 		return obsdes;
 	}
@@ -105,44 +92,53 @@ public class PrecinteDto extends BaseDto{
 		this.obsdes = obsdes;
 	}
 
-	public String getUsuariId() {
-		return usuariId;
+	
+	public UsuariDto getUsuari() {
+		return usuari;
 	}
 
-	public void setUsuariId(String usuariId) {
-		this.usuariId = usuariId;
+	public void setUsuari(UsuariDto usuari) {
+		this.usuari = usuari;
 	}
 
-	public String getConcepteId() {
-		return concepteId;
+	public Date getDatpre() {
+		return datpre;
 	}
 
-	public void setConcepteId(String concepteId) {
-		this.concepteId = concepteId;
+	public void setDatpre(Date datpre) {
+		this.datpre = datpre;
 	}
 
-	public String getConcepteDesc() {
-		return concepteDesc;
+	public Date getDatdes() {
+		return datdes;
 	}
 
-	public void setConcepteDesc(String concepteDesc) {
-		this.concepteDesc = concepteDesc;
+	public void setDatdes(Date datdes) {
+		this.datdes = datdes;
 	}
 
-	public String getEntitatId() {
-		return entitatId;
+	public ConcepteDto getConcepte() {
+		return concepte;
 	}
 
-	public void setEntitatId(String entitatId) {
-		this.entitatId = entitatId;
+	public void setConcepte(ConcepteDto concepte) {
+		this.concepte = concepte;
 	}
 
-	public String getEntitatDesc() {
-		return entitatDesc;
+	public EntitatDto getEntitat() {
+		return entitat;
 	}
 
-	public void setEntitatDesc(String entitatDesc) {
-		this.entitatDesc = entitatDesc;
+	public void setEntitat(EntitatDto entitat) {
+		this.entitat = entitat;
 	}
 
+	@Override
+	public String toString() {
+		return "PrecinteDto [id=" + id + ", datpre=" + datpre + ", referencia=" + referencia + ", obspre=" + obspre
+				+ ", datdes=" + datdes + ", obsdes=" + obsdes + ", vehicle=" + vehicle + ", usuari=" + usuari
+				+ ", concepte=" + concepte + ", entitat=" + entitat + ", motiu=" + motiu + "]";
+	}
+
+	
 }

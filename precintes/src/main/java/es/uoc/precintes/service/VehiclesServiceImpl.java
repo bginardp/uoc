@@ -9,6 +9,7 @@ import es.uoc.precintes.dto.PersonaDto;
 import es.uoc.precintes.dto.VehicleDto;
 import es.uoc.precintes.model.Persona;
 import es.uoc.precintes.model.Vehicle;
+import es.uoc.precintes.utils.Convert;
 
 @Service
 public class VehiclesServiceImpl implements VehiclesService {
@@ -43,8 +44,10 @@ public class VehiclesServiceImpl implements VehiclesService {
 
 	@Override
 	public Long saveVehicle(VehicleDto vehDto) {
-		Persona persona= vehDao.getPersona(vehDto.getPersonaId());
-		Vehicle vehicle=new Vehicle(vehDto,persona);
+		Persona persona=Convert.toDao(vehDto.getPersona());
+//		Persona persona= vehDao.getPersona(vehDto.getPersonaId());
+		Vehicle vehicle=Convert.toDao(vehDto);
+		vehDao.savePersona(persona);
 		vehDao.saveVehicle(vehicle);
 		return vehicle.getId();
 	}

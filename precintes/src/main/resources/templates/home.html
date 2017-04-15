@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:include="/include/head :: head('Precintes')"/>
+<th:block th:include="/include/head :: head('Vehicle')"/>
 <body>
   <div class="container">
       <th:block th:include="/include/navbar :: navbar"/>
-      <div class="jumbotron">
-        <h2 th:text="#{home.welcome}">Benvinguts a la gestió de precintes</h2>
-        <h3 th:text="${usuari}"></h3>
-        <h2 th:text="#{home.titol}"></h2>
+      <div class="box-title">
+         <h2 th:text="#{home.titol}"></h2>
       </div>
       <div th:if="${errors.size()>0}" class="alert alert-danger">
 	    	<ul>
@@ -16,6 +14,7 @@
 			    </li>
 			</ul>
       </div>
+      <br/>
       <div class="row">
 		<div class="col-md-4 col-md-offset-3">
       		<form th:action="@{/vehicle/view}">

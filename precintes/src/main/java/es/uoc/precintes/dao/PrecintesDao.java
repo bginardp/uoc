@@ -1,39 +1,73 @@
 package es.uoc.precintes.dao;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.impl.JPAQuery;
+
 import es.uoc.precintes.jpa.PrecinteRepository;
 import es.uoc.precintes.model.Precinte;
-import es.uoc.precintes.model.Vehicle;
+import es.uoc.precintes.model.QPrecinte;
 
 @Component
 public class PrecintesDao {
 	@Autowired
 	private PrecinteRepository precinteRepository;
-	
+	@Autowired
+	private EntityManager entityManager;
 
-	private <T> List<T> convertItToList(Iterable<T> labels) {
-		List<T> result = new ArrayList<>();
-		for (T label : labels) {
-			result.add(label);
+	
+	public List<Precinte> findPrecintesByCriteris(Date datdespre, Date datfipre, Date datdesdespre, Date datfidespre, String entitatId, String concepteId, String motiuId) {
+		// 1ª opción -> nombre de método complejo en el repositorio -> no
+		// 2ª opción -> HQL -> consulta dentro de un string, no se compila!
+			// List<Article> arts = entityManager.createQuery("from Articles where
+		// ....");
+		// 3ª opción -> QueryDSL -> permite que el compilador nos ayude a
+		// escribir HQL.
+		QPrecinte precinte=QPrecinte.precinte;
+		// 2 Creació de la consulta
+		JPAQuery<Precinte> query = new JPAQuery<>(entityManager);
+		query.from(precinte);
+		BooleanBuilder builder = new BooleanBuilder();
+		if (datdespre !=null && datfipre!=null) {
+		    builder.or(precinte.datpre.between(datdespre, datfipre));
 		}
-		return result;
+		if (datdesdespre !=null && datfidespre!=null) {
+			builder.and(precinte.datdes.between(datdespre, datfipre));
+		}
+		if (entitatId != null) {
+			builder.and(precinte.entitat.id.eq(entitatId));
+		}
+		if (concepteId != null) {
+			builder.and(precinte.concepte.id.id.eq(concepteId));
+		}
+		if (motiuId != null) {
+			builder.and(precinte.motiu.id.eq(motiuId));
+		}
+		query.where(builder);
+		query.orderBy(precinte.datpre.asc());
+		List<Precinte> list= query.fetch();
+		return list;
 	}
-
 	
-	public Vehicle findPrecintesByCriteris(String criteris){
-		//TODO
-		return null;
+	
+	public List<Precinte> findPrecintesByCriteris(String criteris){
+		List<Precinte> precintes=null;
+		return precintes;
 	}
 
-	public Vehicle findPrecintesByMatricula(String matricula){
-		//TODO
-		return null;
-	}	
+	public List<Precinte> findPrecintesByVehicleId(Long idVehicle){
+		List<Precinte> precintes = precinteRepository.findByVehicleId(idVehicle);
+		return precintes;
+	}
 
 	public void savePrecinte(Precinte precinte) {
 		if (precinte != null) {
@@ -48,7 +82,7 @@ public class PrecintesDao {
 		return null;
 	}
 
-	public int getNumPrecintesVigents(String matricula) {
+	public int getNumPrecintesVigents(Long idVehicle) {
 		//TODO
 		return 0;
 	}

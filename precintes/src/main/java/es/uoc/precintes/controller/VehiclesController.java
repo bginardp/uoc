@@ -18,14 +18,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.uoc.precintes.dto.ErrorDto;
 import es.uoc.precintes.dto.PersonaDto;
+import es.uoc.precintes.dto.PrecinteDto;
 import es.uoc.precintes.dto.VehicleDto;
-import es.uoc.precintes.model.Persona;
+import es.uoc.precintes.service.PrecintesService;
 import es.uoc.precintes.service.VehiclesService;
 @RequestMapping(value="/vehicle")
 @Controller
 public class VehiclesController {
 	@Autowired
 	VehiclesService vehService;
+	@Autowired
+	PrecintesService precService;
 	@ModelAttribute("page")
 	public String module() {
 		return "home";
@@ -110,9 +113,15 @@ public class VehiclesController {
 		public String findVehicleByMatricula(Principal principal, Model model,@RequestParam(value="matric",required=false) String matric ) {
 			if (matric!=null) {
 				VehicleDto vehicle= vehService.findVehicleByMatricula(matric);
+				
 				if (vehicle.hasErrores()) {
 				    return gotoHome(model, principal, matric,vehicle.getErrores());
-				} else {return "/vehicles/view";} 
+				} else {
+					List<PrecinteDto> precintes = precService.findPrecintesByVehicleId(vehicle.getId());
+					model.addAttribute("vehicle", vehicle);
+					model.addAttribute("precintes", precintes);
+					
+					return "/vehicles/view";} 
 			} else {
 				ErrorDto e = new ErrorDto("error.nomatric");
 				List<ErrorDto> errors=new ArrayList<ErrorDto>();

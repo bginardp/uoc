@@ -138,4 +138,12 @@ public class PersonaDto extends BaseDto {
 		this.email = email;
 	}
 
+	@Override
+	public String toString() {
+		return "PersonaDto [id=" + id + ", nif=" + nif + ", nom=" + nom + ", ll1per=" + ll1per + ", ll2per=" + ll2per
+				+ ", domicili=" + domicili + ", municipi=" + municipi + ", codpos=" + codpos + ", provincia="
+				+ provincia + ", telefono=" + telefono + ", email=" + email + "]";
+	}
+
+	
 }

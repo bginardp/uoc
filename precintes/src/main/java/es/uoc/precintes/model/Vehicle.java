@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import es.uoc.precintes.dto.VehicleDto;
+import es.uoc.precintes.utils.Convert;
 //TODO: Afegir Validacions JSR
 @Entity
 @Table(name = "vehicles")
@@ -22,7 +23,9 @@ public class Vehicle {
 	@GeneratedValue(generator="VehSeq")
     @SequenceGenerator(name="VehSeq",sequenceName="tfg.vehicles_seq", allocationSize=1)
 	private Long id;
+	@NotNull
 	private String matricula;
+	@NotNull
    	private String bastidor;
 	private String marca;
 	private String model;
@@ -51,20 +54,21 @@ public class Vehicle {
 
 
 
-	public Vehicle(VehicleDto vehicle, Persona persona) {
+	public Vehicle(VehicleDto vehicle) {
 		this.id=vehicle.getId();
 		this.matricula=vehicle.getMatricula();
 		this.bastidor=vehicle.getBastidor();
 		this.marca=vehicle.getMarca();
 		this.model=vehicle.getModel();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		try {
-			this.datmat=sdf.parse(vehicle.getDatmat());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.persona=persona;
+		this.datmat=vehicle.getDatmat();
+//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//		try {
+//			this.datmat=sdf.parse(vehicle.getDatmat());
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		this.persona=Convert.toDao(vehicle.getPersona());
 	}
 	public Long getId() {
 		return id;
