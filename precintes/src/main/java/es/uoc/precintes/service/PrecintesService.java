@@ -13,7 +13,7 @@ public interface PrecintesService {
 	public List<PrecinteDto> findPrecintesByCriteris(String criteri);
 	public List<PrecinteDto> findPrecintesByVehicleId(Long idVehicle);
 	Long registerPrecinte(PrecinteDto precinte);
-	void registerDesprecinte(PrecinteDto desprecinte);
+	PrecinteDto registerDesprecinte(PrecinteDto desprecinte);
 	PrecinteDto getPrecinte(long precinteId);
 	void editPrecinte(PrecinteDto precinte);
 	void editDesPrecinte(PrecinteDto desprecinte);

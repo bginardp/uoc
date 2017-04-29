@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,11 +54,11 @@ public class VehiclesController {
 			
 		return gotoEdit(model,vehicle);
 	}
-	
-	@RequestMapping(value="/save", method=RequestMethod.POST)
+
+	@PostMapping(value="/save")
 	public String saveVehicle(
 			Model model,
-			@Valid @ModelAttribute("vehicle") VehicleDto vehicle,
+			@Valid @ModelAttribute("vehicle") VehicleDto vehicle, 
 			BindingResult results){
 		if (results.hasErrors()){
 			return gotoEdit(model, vehicle);
@@ -120,7 +121,6 @@ public class VehiclesController {
 					List<PrecinteDto> precintes = precService.findPrecintesByVehicleId(vehicle.getId());
 					model.addAttribute("vehicle", vehicle);
 					model.addAttribute("precintes", precintes);
-					
 					return "/vehicles/view";} 
 			} else {
 				ErrorDto e = new ErrorDto("error.nomatric");

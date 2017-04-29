@@ -11,241 +11,237 @@
 <body>
 	<div class="container">
 	<th:block th:include="/include/navbar :: navbar"/>
-		<h3 th:text="#{vehicles.edit.titol}">Formulari de vehicles</h3>
-
+	<h3 th:text="#{vehicles.edit.titol}">Formulari de vehicles</h3>
+	<form class="form-horizontal" th:object="${vehicle}" 
+			  th:action="@{/vehicle/save}"
+			  method="post">
 		<div class="row">
-			<div class="col-md-9 col-md-offset-1">
-				<div th:if="${#httpServletRequest.getParameter('msg')=='ok'}" 
-					 class="alert alert-success"
-					 th:text="#{precintes.succesful.operation}">
-					 La operaci&oacute;n se ha realizado correctamente
-				</div>
-				<form class="form-horizontal" th:object="${vehicle}" 
-					  th:action="@{/vehicle/save}"
-					  method="post">
-					  
-				    <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
-				    	<ul>
-						    <li th:each="e : ${#fields.detailedErrors()}" th:class="${e.global}? globalerr : fielderr">
-						        <span th:text="${e.global}? '*' : ${e.fieldName}">The field name</span> |
-						        <span th:text="${e.message}">The error message</span>
-						    </li>
-						</ul>
+			<div th:if="${#httpServletRequest.getParameter('msg')=='ok'}" 
+				 class="alert alert-success"
+				 th:text="#{precintes.succesful.operation}">
+				 La operaci&oacute;n se ha realizado correctamente
+			</div>
+			<div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
+			    	<ul>
+					    <li th:each="e : ${#fields.detailedErrors()}" th:class="${e.global}? globalerr : fielderr">
+					        <span th:text="${e.global}? '*' : ${e.fieldName}">The field name</span> |
+					        <span th:text="${e.message}">The error message</span>
+					    </li>
+					</ul>
+			</div>
+		</div>
+		<div class="row">				
+				<div class="col-md-6">	  
+					<div class="form-group">
+					    <label 	for="id" class="col-sm-3 control-label">ID</label>
+					    <div class="col-sm-9">
+					    	<input 	class="form-control" 
+					    		th:field="*{id}"
+					    		th:errorClass="text-danger"
+					    		readonly="readonly"/>
+					    </div>
 					</div>
-						<div class="form-group">
-						    <label 	for="id" class="col-sm-3 control-label">ID</label>
-						    <div class="col-sm-9">
-						    	<input 	class="form-control" 
-						    		th:field="*{id}"
+					<div class="form-group">
+					    <label 	for="matricula" class="col-sm-3 control-label">Matrícula</label>
+					    <div class="col-sm-9">
+						    <input 	class="form-control" 
+						    		th:field="*{matricula}"
+						    		th:errorClass="text-danger" autofocus="autofocus" placeholder="NNNNXXX"/>
+						    <span 	th:if="${#fields.hasErrors('matricula')}" 
+						    		th:text="${#fields.errors('matricula')}"
+						    		class="text-danger">
+						    		</span>
+					    </div>
+					</div>
+					<div class="form-group">
+					    <label 	for="bastidor" class="col-sm-3 control-label">Bastidor</label>
+					    <div class="col-sm-9">
+						    <input 	class="form-control" 
+						    		th:field="*{bastidor}"
+						    		th:errorClass="text-danger" placeholder="xxxxxxxxxxxxxxxxx"/>
+						    <span 	th:if="${#fields.hasErrors('bastidor')}" 
+						    		th:text="${#fields.errors('bastidor')}"
+						    		class="text-danger">
+						    		</span>
+					    </div>
+					</div>
+					<div class="form-group">
+					    <label 	for="marca" class="col-sm-3 control-label">Marca</label>
+					    <div class="col-sm-9">
+					    <input 	class="form-control" 
+					    		th:field="*{marca}"
+					    		th:errorClass="text-danger" placeholder="marca"/>
+					    <span 	th:if="${#fields.hasErrors('marca')}" 
+					    		th:text="${#fields.errors('marca')}"
+					    		class="text-danger">
+					    		</span>
+					    </div>
+					</div>
+					<div class="form-group">
+					    <label 	for="model" class="col-sm-3 control-label">Model</label>
+					    <div class="col-sm-9">
+					    <input 	class="form-control" 
+					    		th:field="*{model}"
+					    		th:errorClass="text-danger" placeholder="model"/>
+					    <span 	th:if="${#fields.hasErrors('model')}" 
+					    		th:text="${#fields.errors('model')}"
+					    		class="text-danger">
+					    		</span>
+					    </div>
+					</div>
+					<div class="form-group">
+					    <label 	for="datmat" class="col-sm-3 control-label" >Data matriculació</label>
+					    <div class="col-sm-9">
+					    <input 	class="form-control" type="text"
+					    		th:field="*{datmat}"
+					    		th:errorClass="text-danger" placeholder="dd/mm/yyyy"/>
+					    <span 	th:if="${#fields.hasErrors('datmat')}" 
+					    		th:text="${#fields.errors('datmat')}"
+					    		class="text-danger">
+					    		</span>
+					    </div>
+					</div>
+			</div>
+			<div class="col-md-6">						
+					<div class="form-group">
+					    <label 	for="personaId" class="col-sm-3 control-label">Id persona</label>
+					    <div class="col-sm-9">
+						    <input 	class="form-control" 
+						    		th:field="*{persona.id}"
 						    		th:errorClass="text-danger"
 						    		readonly="readonly"/>
-						    </div>
-						   
-						</div>
-						
-						<div class="form-group">
-						    <label 	for="matricula" class="col-sm-3 control-label">Matrícula</label>
-						    <div class="col-sm-9">
-							    <input 	class="form-control" 
-							    		th:field="*{matricula}"
-							    		th:errorClass="text-danger" autofocus="autofocus"/>
-							    <span 	th:if="${#fields.hasErrors('matricula')}" 
-							    		th:text="${#fields.errors('matricula')}"
-							    		class="text-danger">
-							    		</span>
-						    </div>
-						</div>
-						
-						<div class="form-group">
-						    <label 	for="bastidor" class="col-sm-3 control-label">Bastidor</label>
-						    <div class="col-sm-9">
-							    <input 	class="form-control" 
-							    		th:field="*{bastidor}"
-							    		th:errorClass="text-danger"/>
-							    <span 	th:if="${#fields.hasErrors('bastidor')}" 
-							    		th:text="${#fields.errors('bastidor')}"
-							    		class="text-danger">
-							    		</span>
-						    </div>
-						</div>
-											
-						<div class="form-group">
-						    <label 	for="marca" class="col-sm-3 control-label">Marca</label>
-						    <div class="col-sm-9">
-						    <input 	class="form-control" 
-						    		th:field="*{marca}"
-						    		th:errorClass="text-danger"/>
-						    <span 	th:if="${#fields.hasErrors('marca')}" 
-						    		th:text="${#fields.errors('marca')}"
-						    		class="text-danger">
-						    		</span>
-						    </div>
-						</div>
-						
-						<div class="form-group">
-						    <label 	for="model" class="col-sm-3 control-label">Model</label>
-						    <div class="col-sm-9">
-						    <input 	class="form-control" 
-						    		th:field="*{model}"
-						    		th:errorClass="text-danger"/>
-						    <span 	th:if="${#fields.hasErrors('model')}" 
-						    		th:text="${#fields.errors('model')}"
-						    		class="text-danger">
-						    		</span>
-						    </div>
-						</div>
-						
-						<div class="form-group">
-						    <label 	for="datmat" class="col-sm-3 control-label" >Data matriculació</label>
-						    <div class="col-sm-9">
-						    <input 	class="form-control" type="text"
-						    		th:field="*{datmat}"
-						    		th:errorClass="text-danger"/>
-						    <span 	th:if="${#fields.hasErrors('datmat')}" 
-						    		th:text="${#fields.errors('datmat')}"
-						    		class="text-danger">
-						    		</span>
-						    </div>
-						</div>
-						
-						<div class="form-group">
-						    <label 	for="personaId" class="col-sm-3 control-label">Id persona</label>
-						    <div class="col-sm-9">
-							    <input 	class="form-control" 
-							    		th:field="*{persona.id}"
-							    		th:errorClass="text-danger"
-							    		readonly="readonly"/>
-						    </div>
-						   
-						</div>
-						
-						<div class="form-group">
-						    <label 	for="nom" class="col-sm-3 control-label">Nom</label>
-						    <div class="col-sm-9">
-						    <input 	class="form-control" 
-						    		th:field="*{persona.nom}"/>
-						    </div>
-						</div>
-						
-						<div class="form-group">
-						    <label 	for="ll1per" class="col-sm-3 control-label">Llinatge 1</label>
-						    <div class="col-sm-9">
-						    <input 	class="form-control" 
-						    		th:field="*{persona.ll1per}"/>
-						    </div>
-						</div>
-						<div class="form-group">
-						    <label 	for="ll2per" class="col-sm-3 control-label">Llinatge 2</label>
-						    <div class="col-sm-9">
-						    <input 	class="form-control" 
-						    		th:field="*{persona.ll2per}"/>
-						    </div>
-						</div>
-						
-						<div class="form-group">
-						    <label 	for="nif" class="col-sm-3 control-label">Nif</label>
-						    <div class="col-sm-9">
-						    <input 	class="form-control" 
-						    		th:field="*{persona.nif}"/>
-	 								<span 	th:if="${#fields.hasErrors('persona.nif')}" 
-						    		th:text="${#fields.errors('persona.nif')}"
-						    		class="text-danger">
-									</span>			
-							</div>		    		
-						</div>
-						
-						
-						<div class="form-group">
-						    <label 	for="telefono" class="col-sm-3 control-label">Teléfono</label>
-						    <div class="col-sm-9">
-						    <input 	class="form-control" 
-						    		th:field="*{persona.telefono}"
-						    		th:errorClass="text-danger"/>
-						    <span 	th:if="${#fields.hasErrors('persona.telefono')}" 
-						    		th:text="${#fields.errors('persona.telefono')}"
-						    		class="text-danger">
-						    		</span>
-						    </div>
-						</div>
-						<div class="form-group">
-						    <label 	for="email" class="col-sm-3 control-label">email</label>
-						    <div class="col-sm-9">
-						    <input 	class="form-control" 
-						    		th:field="*{persona.email}"
-						    		th:errorClass="text-danger"/>
-						    <span 	th:if="${#fields.hasErrors('persona.email')}" 
-						    		th:text="${#fields.errors('persona.email')}"
-						    		class="text-danger">
-						    		</span>
-						    </div>
-						</div>
-						
-						<div class="form-group">
-						    <label 	for="domicili" class="col-sm-3 control-label">Domicili</label>
-						    <div class="col-sm-9">
-						    <input 	class="form-control" 
-						    		th:field="*{persona.domicili}"
-						    		th:errorClass="text-danger"/>
-						    <span 	th:if="${#fields.hasErrors('persona.domicili')}" 
-						    		th:text="${#fields.errors('persona.domicili')}"
-						    		class="text-danger"></span>
-						   	</div>
-						</div>	
-						<div class="form-group">
-						    <label 	for="municipi" class="col-sm-3 control-label">Municipi</label>
-						    <div class="col-sm-9">
-						    <input 	class="form-control" 
-						    		th:field="*{persona.municipi}"
-						    		th:errorClass="text-danger"/>
-						    <span 	th:if="${#fields.hasErrors('persona.municipi')}" 
-						    		th:text="${#fields.errors('persona.municipi')}"
-						    		class="text-danger">
-						    		</span>
-						    </div>
-						</div>
+					    </div>
+					   
+					</div>
+					
+					<div class="form-group">
+					    <label 	for="nom" class="col-sm-3 control-label">Nom</label>
+					    <div class="col-sm-9">
+					    <input 	class="form-control" 
+					    		th:field="*{persona.nom}" placeholder="nom"/>
+					    </div>
+					</div>
+					
+					<div class="form-group">
+					    <label 	for="ll1per" class="col-sm-3 control-label">Llinatge 1</label>
+					    <div class="col-sm-9">
+					    <input 	class="form-control" 
+					    		th:field="*{persona.ll1per}" placeholder="primer llinatge"/>
+					    </div>
+					</div>
+					<div class="form-group">
+					    <label 	for="ll2per" class="col-sm-3 control-label">Llinatge 2</label>
+					    <div class="col-sm-9">
+					    <input 	class="form-control" 
+					    		th:field="*{persona.ll2per}" placeholder="segon llinatge"/>
+					    </div>
+					</div>
+					
+					<div class="form-group">
+					    <label 	for="nif" class="col-sm-3 control-label">Nif</label>
+					    <div class="col-sm-9">
+					    <input 	class="form-control" 
+					    		th:field="*{persona.nif}" placeholder="document identificatiu"/>
+ 								<span 	th:if="${#fields.hasErrors('persona.nif')}" 
+					    		th:text="${#fields.errors('persona.nif')}"
+					    		class="text-danger">
+								</span>			
+						</div>		    		
+					</div>
+					
+					
+					<div class="form-group">
+					    <label 	for="telefono" class="col-sm-3 control-label">Teléfono</label>
+					    <div class="col-sm-9">
+					    <input 	class="form-control" 
+					    		th:field="*{persona.telefono}"
+					    		th:errorClass="text-danger" placeholder="telefono"/>
+					    <span 	th:if="${#fields.hasErrors('persona.telefono')}" 
+					    		th:text="${#fields.errors('persona.telefono')}"
+					    		class="text-danger">
+					    		</span>
+					    </div>
+					</div>
+					<div class="form-group">
+					    <label 	for="email" class="col-sm-3 control-label">email</label>
+					    <div class="col-sm-9">
+					    <input 	class="form-control" 
+					    		th:field="*{persona.email}"
+					    		th:errorClass="text-danger" placeholder="name@domain.com"/>
+					    <span 	th:if="${#fields.hasErrors('persona.email')}" 
+					    		th:text="${#fields.errors('persona.email')}"
+					    		class="text-danger">
+					    		</span>
+					    </div>
+					</div>
+					
+					<div class="form-group">
+					    <label 	for="domicili" class="col-sm-3 control-label">Domicili</label>
+					    <div class="col-sm-9">
+					    <input 	class="form-control" 
+					    		th:field="*{persona.domicili}"
+					    		th:errorClass="text-danger" placeholder="nom carrer, numero pis porta"/>
+					    <span 	th:if="${#fields.hasErrors('persona.domicili')}" 
+					    		th:text="${#fields.errors('persona.domicili')}"
+					    		class="text-danger"></span>
+					   	</div>
+					</div>	
+					<div class="form-group">
+					    <label 	for="municipi" class="col-sm-3 control-label">Municipi</label>
+					    <div class="col-sm-9">
+					    <input 	class="form-control" 
+					    		th:field="*{persona.municipi}"
+					    		th:errorClass="text-danger" placeholder="nom de municipi"/>
+					    <span 	th:if="${#fields.hasErrors('persona.municipi')}" 
+					    		th:text="${#fields.errors('persona.municipi')}"
+					    		class="text-danger">
+					    		</span>
+					    </div>
+					</div>
 
-						<div class="form-group">
-						    <label 	for="codpos" class="col-sm-3 control-label">Codi postal</label>
-						    <div class="col-sm-9">
-						    <input 	class="form-control" 
-						    		th:field="*{persona.codpos}"
-						    		th:errorClass="text-danger"/>
-						    <span 	th:if="${#fields.hasErrors('persona.codpos')}" 
-						    		th:text="${#fields.errors('persona.codpos')}"
-						    		class="text-danger">
-						    		</span>
-						    </div>
-						</div>
-					
-						<div class="form-group">
-						    <label 	for="provincia" class="col-sm-3 control-label">Provincia</label>
-						    <div class="col-sm-9">
-						    <input 	class="form-control" 
-						    		th:field="*{persona.provincia}"
-						    		th:errorClass="text-danger"/>
-						    <span 	th:if="${#fields.hasErrors('persona.provincia')}" 
-						    		th:text="${#fields.errors('persona.provincia')}"
-						    		class="text-danger">
-						    		</span>
-						    </div>
-						</div>
-					
+					<div class="form-group">
+					    <label 	for="codpos" class="col-sm-3 control-label">Codi postal</label>
+					    <div class="col-sm-9">
+					    <input 	class="form-control" 
+					    		th:field="*{persona.codpos}"
+					    		th:errorClass="text-danger" placeholder="cp"/>
+					    <span 	th:if="${#fields.hasErrors('persona.codpos')}" 
+					    		th:text="${#fields.errors('persona.codpos')}"
+					    		class="text-danger">
+					    		</span>
+					    </div>
+					</div>
+				
+					<div class="form-group">
+					    <label 	for="provincia" class="col-sm-3 control-label">Provincia</label>
+					    <div class="col-sm-9">
+					    <input 	class="form-control" 
+					    		th:field="*{persona.provincia}"
+					    		th:errorClass="text-danger" placeholder="nom provincia"/>
+					    <span 	th:if="${#fields.hasErrors('persona.provincia')}" 
+					    		th:text="${#fields.errors('persona.provincia')}"
+					    		class="text-danger">
+					    		</span>
+					    </div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-md-offset-2">
 					<button type="submit" class="btn btn-primary ">Guardar</button>
-					<button type="button" onclick="$('#frmRemove').submit();"
-							th:if="${vehicle.id!=null}"
-							class="btn btn-warning">Eliminar</button>
-					<a 		th:href="@{/}"
-							class="btn btn-default">Tornar</a>
-				  
-							
-				</form>
-				<!-- formulario para borrar -->
-				<form id="frmRemove"
-					  th:action="@{'/vehicle/remove'}" method="post">
-					<input type="hidden" name="id" th:value="${vehicle.id}"/>
-				</form>
-			</div>
-		</div> <!-- row -->
+						<button type="button" onclick="$('#frmRemove').submit();"
+								th:if="${vehicle.id!=null}"
+								class="btn btn-warning">Eliminar</button>
+						<a 		th:href="@{/}"
+								class="btn btn-default">Tornar</a>
+					</div>
+				</div>			
+			</div> <!-- row -->
+		</form>
+		<!-- formulario para borrar -->
+		<form id="frmRemove"
+			  th:action="@{'/vehicle/remove'}" method="post">
+			<input type="hidden" name="id" th:value="${vehicle.id}"/>
+		</form>
 		<th:block th:include="/include/footer :: footer"/>
 	</div> <!-- container -->
 	

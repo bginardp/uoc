@@ -1,9 +1,8 @@
 package es.uoc.precintes.model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,7 +14,6 @@ import javax.validation.constraints.NotNull;
 
 import es.uoc.precintes.dto.VehicleDto;
 import es.uoc.precintes.utils.Convert;
-//TODO: Afegir Validacions JSR
 @Entity
 @Table(name = "vehicles")
 public class Vehicle {
@@ -24,8 +22,10 @@ public class Vehicle {
     @SequenceGenerator(name="VehSeq",sequenceName="tfg.vehicles_seq", allocationSize=1)
 	private Long id;
 	@NotNull
+	@Column(name="matricula", unique=true)
 	private String matricula;
 	@NotNull
+	@Column(name="bastidor", unique=true)
    	private String bastidor;
 	private String marca;
 	private String model;
@@ -39,8 +39,6 @@ public class Vehicle {
 	public Vehicle () {
 		
 	}
-	
-	
 	
 	public Vehicle(String matricula, String bastidor, String marca, String model, Date datmat, Long personaId) {
 		super();
@@ -61,13 +59,7 @@ public class Vehicle {
 		this.marca=vehicle.getMarca();
 		this.model=vehicle.getModel();
 		this.datmat=vehicle.getDatmat();
-//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//		try {
-//			this.datmat=sdf.parse(vehicle.getDatmat());
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		this.personaId=vehicle.getPersona().getId();
 		this.persona=Convert.toDao(vehicle.getPersona());
 	}
 	public Long getId() {

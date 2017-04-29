@@ -25,7 +25,7 @@ public class ConcepteDto {
 	}
 
 	public ConcepteDto(Concepte concepte) {
-		this.entitatId = concepte.getEntitat().getId();
+		this.entitatId = concepte.getId().getEntitatId();
 		this.id = concepte.getId().getId();
 		this.descripcio = concepte.getDescripcio();
 	}

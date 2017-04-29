@@ -9,61 +9,16 @@
       </div>
     <div class="row">
         <div class="col-md-12">
-            <h4 class=""><strong>Vehicle</strong></h4>
-            <div class="box-vehicle">
-                <div class="row">
-                  <div class="col-md-2">
-                  	<div class="col-md-6 text-right">Identificador:</div>
-                    <div class="col-md-6" th:text="${vehicle.id}"></div>
-                  </div>
-                  <div class="col-md-2">
-                        <div class="col-md-6">Matricula:</div>
-                        <div class="col-md-6" th:text="${vehicle.matricula}">3345-FFG</div>
-                  </div>
-                  <div class="col-md-3">
-                        <div class="col-md-6 text-right">Marca i model:</div>
-                        <div class="col-md-6" th:text="${vehicle.marcaModel}">SEAT LEON</div>
-                  </div>
-                  <div class="col-md-4">
-                       <div class="col-md-4 text-right">Titular:</div>
-                       <div class="col-md-8" th:text="${vehicle.nomComplet}">JOSE GARCIA PEREZ</div>
-                  </div>
-                </div>
-                <div class="row">
-                	<div class="col-md-2"><a th:href="@{'/vehicle/'+${vehicle.id}}" class="btn btn-primary">Editar</a><br/>     
-                       <strong>Total precintes actius:</strong><span class="badge">2</span>
-                	</div>
-                    <div class="col-md-2">
-                       <div class="col-md-6 text-right">Data Matricula:</div>
-                       <div class="col-md-6" th:text="${#dates.format(vehicle.datmat, 'dd/MM/yyyy')}">01/11/1995</div> 
-                    </div>
-                    <div class="col-md-3">
-                       <div class="col-md-6 text-right">Bastidor:</div>
-                       <div class="col-md-6" th:text="${vehicle.bastidor}">QWQWQWQWQW2121212121</div>                       
-                    </div>
-                    <div class="col-md-4">
-                            <div class="col-md-4 text-right">Domicili</div>
-                            <div class="col-md-8">
-                              <address>
-                              <strong th:text="${vehicle.persona.domicili}">CE GRANOLLERS num:22 pis:4 porta A</strong><br/>
-                              <span th:text="${vehicle.persona.municipi}">Palma</span><br/>
-                              <span th:text="${vehicle.persona.codpos}">07004</span>
-                              <span th:text="${vehicle.persona.provincia}">ILLES BALEARS</span>
-							</address>
-                        </div>
-                    </div>
-                </div> <!-- row -->
-            </div>  <!-- box vehicle -->
+            <th:block th:include="/include/vehicle :: vehicle"/>
         </div>
     </div>
     <!-- row -->
     <div class="row">
         <div class="col-md-12">
-          <h4><strong>Relació de precintes</strong></h4>
-
+          <h4><strong>Relació de precintes</strong><span style="float: right;"><strong>Total precintes actius: </strong><span th:text="${vehicle.numpre}" class="badge">2</span> </span></h4>
             <div class="box-toolbar">
                 <div class="btn-group">
-                    <button class="btn btn-default" type="button">	<em class="glyphicon glyphicon-align-left"></em> Alta precinte</button>
+                    <a th:href="@{'/precinte/'+${vehicle.id}+'/new'}" class="btn btn-default"><em class="glyphicon glyphicon-align-left"></em> Alta precinte</a>
                 </div>
             </div>
         </div>
@@ -83,48 +38,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="active">
-                        <td class="">1</td>
-                        <td class="">01/01/2016</td>
-                        <td class="">JUDICIAL</td>
-                        <td class="">JUDJAT 14 DISTRICTE 1</td>
-                        <td class="">01/04/2016</td>
-                        <td class="">DEUTE PAGADA</td>
+                    <tr th:each="precinte:${precintes}">
+                        <td th:text="${precinte.id}">1</td>
+                        <td th:text="${#dates.format(precinte.datpre, 'dd/MM/yyyy')}">01/01/2016</td>
+                        <td th:text="${precinte.entitat.id}">JUDICIAL</td>
+                        <td th:text="${precinte.concepte.descripcio}">JUDJAT 14 DISTRICTE 1</td>
+                        <td th:text="${precinte.datdes != null?#dates.format(precinte.datdes, 'dd/MM/yyyy'):''}">01/04/2016</td>
+                        <td th:text="${precinte.motiu!=null?precinte.motiu.descripcio:''}">DEUTE PAGADA</td>
                         <td><div class="btn-group">
 		                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							    Acció <span class="caret"></span>
 							 </button>
 		                    <ul class="dropdown-menu">
-		                      <li><a href="#">Editar precinte</a></li>
-		                      <li><a href="#">Alta desprecinte</a></li>
-		                      <li><a href="#">Editar Desprecinte</a></li>
+		                      <li><a th:href="@{'/precinte/view/'+${precinte.id}}">Amplia Detall</a></li>
+		                      <li><a th:href="@{'/precinte/'+${precinte.id}}" th:if="${precinte.isDesprecintat()}==false">Editar precinte</a></li>
+		                      <li><a th:href="@{'/desprecinte/'+${precinte.id}}" th:if="${precinte.isDesprecintat()}==false">Alta desprecinte</a></li>
+		                      <li><a th:href="@{'/desprecinte/'+${precinte.id}}" th:if="${precinte.isDesprecintat()}==true">Editar Desprecinte</a></li>
 		                      <li role="separator" class="divider"></li>
-		                      <li><a href="#">Anul·lar Desprecinte</a></li>
+		                      <li><a href="#" th:if="${precinte.isDesprecintat()}==true" data-toggle="modal" data-id="${precinte.id}" data-target="#cancelModal">Cancel·la Desprecinte</a></li>
 		                    </ul>
 		                  </div>
-		                 </td>
-                    </tr>
-                    <tr>
-                        <td class="">2</td>
-                        <td class="">01/01/2014</td>
-                        <td class="">NEG. MULTES</td>
-                        <td class="">DEUTE EXECUTIVA</td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td>
-                        <!-- Single button -->
-							<div class="btn-group">
-							  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							    Acció <span class="caret"></span>
-							  </button>
-							  <ul class="dropdown-menu">
-							    <li><a href="#">Editar precinte</a></li>
-		                        <li><a href="#">Alta desprecinte</a></li>
-		                        <li><a href="#">Editar Desprecinte</a></li>
-							    <li role="separator" class="divider"></li>
-							    <li><a href="#">Anul·lar Desprecinte</a></li>
-							  </ul>
-							</div>
 		                 </td>
                     </tr>
                 </tbody>
@@ -140,5 +73,46 @@
 	<th:block th:include="/include/footer :: footer"/>
 </div> <!-- container -->
 <th:block th:include="/include/footer-js :: footer-js"/>
+<!-- Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Confirmació operació</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name"/>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tanca</button>
+        <a th:href="@{'/desprecinte/cancel/'}" class="btn btn-primary">Confirma</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$('#cancelModal').on('show.bs.modal', function (event) {
+	  var button = $(event.relatedTarget) // Button that triggered the modal
+	  var recipient = button.data('id') // Extract info from data-* attributes
+	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+	  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+	  var modal = $(this)
+	  modal.find('.modal-title').text('New message to ' + recipient)
+	  modal.find('.modal-body input').val(recipient)
+	})
+
+</script>
+
 </body>
 </html>

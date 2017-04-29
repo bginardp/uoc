@@ -47,8 +47,8 @@ public class AdminDao {
 		concepteRepository.save(new Concepte("RECAP","MULT","Recaptador de multes"));
 		concepteRepository.save(new Concepte("ORGPO","LOCAL","Policia Local"));
 		concepteRepository.save(new Concepte("ORGPO","NACIO","Policia Nacional"));
-		usuariRepository.save(new Usuari("admin","admin"));
-		usuariRepository.save(new Usuari("user","user"));
+		usuariRepository.save(new Usuari("admin","admin","ADMIN"));
+		usuariRepository.save(new Usuari("user","user","USER"));
 	}
 
 	private <T> List<T> convertItToList(Iterable<T> labels) {

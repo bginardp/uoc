@@ -53,6 +53,8 @@ public class Persona {
 	this.id=persona.getId();
 	this.nif=persona.getNif();
 	this.nom=persona.getNom();
+	this.ll1per=persona.getLl1per();
+	this.ll2per=persona.getLl2per();
 	this.domicili=persona.getDomicili();
 	this.municipi=persona.getMunicipi();
 	this.provincia=persona.getProvincia();

@@ -1,9 +1,10 @@
 package es.uoc.precintes.dto;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import es.uoc.precintes.model.Precinte;
 import es.uoc.precintes.utils.Convert;
@@ -13,18 +14,22 @@ public class PrecinteDto extends BaseDto{
 	
 	private Long id;
 	@NotNull
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date datpre;
 	private String referencia;
 	private String obspre;
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date datdes;
 	private String obsdes;
 	private VehicleDto vehicle;
-	@NotNull
 	private UsuariDto usuari;
 	private ConcepteDto concepte;
 	private EntitatDto entitat;
 	private MotiuDto motiu;
 	
+	public PrecinteDto() {
+		this.datpre=new Date();
+	}
 	
 	public PrecinteDto(Precinte precinte) {
 		this.id=precinte.getId();
@@ -131,6 +136,10 @@ public class PrecinteDto extends BaseDto{
 
 	public void setEntitat(EntitatDto entitat) {
 		this.entitat = entitat;
+	}
+	
+	public boolean isDesprecintat() {
+		return (datdes!=null);
 	}
 
 	@Override

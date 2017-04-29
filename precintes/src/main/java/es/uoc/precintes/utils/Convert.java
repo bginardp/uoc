@@ -1,5 +1,8 @@
 package es.uoc.precintes.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.uoc.precintes.dto.ConcepteDto;
 import es.uoc.precintes.dto.EntitatDto;
 import es.uoc.precintes.dto.MotiuDto;
@@ -25,13 +28,7 @@ public class Convert {
 		return personaDto;
 	}
 
-	public static Persona toDao(PersonaDto personaDto) {
-		Persona persona = null;
-		if (personaDto != null) {
-			persona = new Persona(personaDto);
-		}
-		return persona;
-	}
+	
 
 	public static VehicleDto toDto(Vehicle vehicle) {
 		VehicleDto vehicleDto = null;
@@ -94,6 +91,14 @@ public class Convert {
 		return vehicle;
 	}
 	
+	public static Persona toDao(PersonaDto personaDto) {
+		Persona persona = null;
+		if (personaDto != null) {
+			persona = new Persona(personaDto);
+		}
+		return persona;
+	}
+	
 	public static Precinte toDao(PrecinteDto precinteDto) {
 		Precinte precinte = null;
 		if (precinteDto != null) {
@@ -132,6 +137,12 @@ public class Convert {
 		return usuari;
 	}
 	
-	
+	public static <T> List<T> convertItToList(Iterable<T> labels) {
+		List<T> result = new ArrayList<>();
+		for (T label : labels) {
+			result.add(label);
+		}
+		return result;
+	}
 	
 }

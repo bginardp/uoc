@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import es.uoc.precintes.jpa.PersonaRepository;
@@ -64,13 +65,7 @@ public class VehiclesDao {
 		
 	}
 	
-	private <T> List<T> convertItToList(Iterable<T> labels) {
-		List<T> result = new ArrayList<>();
-		for (T label : labels) {
-			result.add(label);
-		}
-		return result;
-	}
+	
 
 	public Vehicle findVehicleByMatricula(String matricula){
 		if (matricula != null) {
@@ -87,7 +82,7 @@ public class VehiclesDao {
 	
 	public void saveVehicle(Vehicle vehicle) {
 		if (vehicle != null) {
-			vehicleRepository.save(vehicle);
+		    vehicleRepository.save(vehicle);
 		}
 	}
 

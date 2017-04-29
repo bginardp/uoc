@@ -3,6 +3,7 @@ package es.uoc.precintes.dto;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -15,10 +16,10 @@ public class VehicleDto extends BaseDto{
 	
   private Long id;
   @NotNull
-  @Size(min=8,max=8)
+  @Size(min=7,max=10)
   private String matricula;
   @NotNull
-  @Size(min=4,max=30)
+  @Size(min=10,max=21)
   private String bastidor;
   @NotNull
   @Size(min=2,max=40)
@@ -29,8 +30,9 @@ public class VehicleDto extends BaseDto{
   @NotNull
   @DateTimeFormat(pattern="dd/MM/yyyy")
   private Date datmat;
-  @NotNull
+  @Valid
   private PersonaDto persona;
+  private long numpre;
  
 public VehicleDto() {
   super();
@@ -98,13 +100,26 @@ public void setPersona(PersonaDto persona) {
 }
 
 public String getNomComplet() {
-	String ret=this.persona.getLl1per()+ this.persona.getLl2per()+", "+this.persona.getNom();
+	String ret="";
+	if (this.persona!=null) {
+	  ret=this.persona.getLl1per()+" "+ this.persona.getLl2per()+", "+this.persona.getNom();
+	}
 	return ret;
 }
 
 public String getMarcaModel() {
 	String ret=this.marca+" "+this.model;
 	return ret;
+}
+
+
+
+public long getNumpre() {
+	return numpre;
+}
+
+public void setNumpre(long numpre) {
+	this.numpre = numpre;
 }
 
 @Override
