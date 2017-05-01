@@ -186,11 +186,16 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 		}
 	}
 	
-	@RequestMapping("/desprecinte/cancel")
+	@RequestMapping("/desprecinte/cancel/{id}")
 	public String cancelDesPrecinte(Model model, Principal principal, 
-				@Valid @ModelAttribute("precinte") PrecinteDto precinte,
-				BindingResult results) {
-			return null;
+			@PathVariable(value="id",required=true) Long precinteId) {
+			PrecinteDto precinte=null;
+			if (precinteId!=null) {
+				precinte=precService.getPrecinte(precinteId);
+				String usuariId=principal.getName();
+				precService.cancelDesPrecinte(precinteId,usuariId);
+			};
+			return "redirect:/vehicle/view?matric="+precinte.getVehicle().getMatricula();
 		}
 	
 	@Override

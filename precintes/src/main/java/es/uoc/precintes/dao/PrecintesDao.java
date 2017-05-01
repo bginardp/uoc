@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.thymeleaf.util.StringUtils;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -42,16 +43,18 @@ public class PrecintesDao {
 		if (datdesdespre != null && datfidespre != null) {
 			builder.and(precinte.datdes.between(datdespre, datfipre));
 		}
-		if (entitatId != null) {
+		if (!StringUtils.isEmpty(entitatId)) {
 			builder.and(precinte.entitat.id.eq(entitatId));
 		}
-		if (concepteId != null) {
+		if (!StringUtils.isEmpty(concepteId)) {
 			builder.and(precinte.concepte.id.id.eq(concepteId));
 		}
-		if (motiuId != null) {
+		if (!StringUtils.isEmpty(motiuId)) {
 			builder.and(precinte.motiu.id.eq(motiuId));
 		}
-		query.where(builder);
+		if (builder.hasValue()) {
+		   query.where(builder);
+		}
 		query.orderBy(precinte.datpre.asc());
 		List<Precinte> list = query.fetch();
 		return list;

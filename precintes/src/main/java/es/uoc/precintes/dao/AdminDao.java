@@ -34,6 +34,7 @@ public class AdminDao {
 
 	@PostConstruct
 	private void init() {
+		motiuRepository.save(new Motiu("DEPA","Deute pagada"));
 		motiuRepository.save(new Motiu("ERROR","Error"));
 		motiuRepository.save(new Motiu("ALTRES","Altres"));
 		entitatRepository.save(new Entitat("JUDI","Judicial"));
@@ -133,6 +134,14 @@ public class AdminDao {
 		if (concepte != null) {
 			concepteRepository.save(concepte);
 		}
+	}
+	
+	public Usuari getUsuari(String usuariId) {
+		Usuari usuari=null;
+		if (usuariId!=null) {
+			usuari= usuariRepository.findOne(usuariId);
+		}
+		return usuari;
 	}
 
 }

@@ -7,16 +7,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.uoc.precintes.dao.AdminDao;
 import es.uoc.precintes.dao.PrecintesDao;
 import es.uoc.precintes.dto.ErrorDto;
 import es.uoc.precintes.dto.PrecinteDto;
 import es.uoc.precintes.model.Precinte;
+import es.uoc.precintes.model.Usuari;
 import es.uoc.precintes.utils.Convert;
 
 @Service
 public class PrecintesServiceImpl implements PrecintesService {
 	@Autowired
 	private PrecintesDao precDao;
+	@Autowired
+	private AdminDao adminDao;
+
 
 	public List<PrecinteDto> findPrecintesByCriteris(Date datdespre, Date datfipre, Date datdesdespre, Date datfidespre,
 			String entitatId, String concepteId, String motiuId) {
@@ -27,12 +32,6 @@ public class PrecintesServiceImpl implements PrecintesService {
 			content.add(Convert.toDto(precinte));
 		}
 		return content;
-	}
-
-	@Override
-	public List<PrecinteDto> findPrecintesByCriteris(String criteri) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -85,22 +84,20 @@ public class PrecintesServiceImpl implements PrecintesService {
 		}
 	}
 
+	
 	@Override
-	public void editDesPrecinte(PrecinteDto desprecinte) {
-		// TODO Auto-generated method stub
+	public void cancelDesPrecinte(Long precinteId,String usuariId) {
+		try {
+			Precinte precinte=precDao.getPrecinte(precinteId);
+			Usuari usuari=adminDao.getUsuari(usuariId);
+			precinte.setDatdes(null);
+			precinte.setMotiu(null);
+			precinte.setUsuari(usuari);
+			precDao.savePrecinte(precinte);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-	}
-
-	@Override
-	public void cancelDesPrecinte(PrecinteDto desprecinte) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int getNumPrecintesVigents(Long idVehicle) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override

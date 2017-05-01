@@ -1,48 +1,147 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:include="/include/head :: head('Altres Recerques')"/>
+<style>
+.form-group {
+  margin-bottom: 2px;
+}
+</style>
 <body>
 <div class="container">
 	<th:block th:include="/include/navbar :: navbar"/>
-	<h2 th:text="#{entitats.list.titol}">Llista d'entitats</h2>
+	<div class="box-title">
+         <h2 th:text="#{altres.titol}"></h2>
+     </div>
 	<div class="row">
-		<div class="col-md-6 col-md-offset-2">
-		<form th:action="@{/precintes}">
-			<div class="form-group">
-			<label for="term">Terme de recerca</label>
-			<input type="text" class="form-control" id="term" name="term" placeholder="introdueix un criteri de recerca"/>
+		<form class="form-horizontal" th:action="@{/altres/search}" th:object="${criteris}" method="post">
+			<div class="col-md-4 col-md-offset-1">
+				<div class="form-group">
+					<label for="datdespre" class="col-sm-7 control-label">Des de data precinte</label>
+					<div class="col-md-5">
+						<input type="text" class="form-control" th:field="*{datdespre}" placeholder="dd/mm/yyyy"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="datdesdespre" class="col-sm-7 control-label">Des de data desprecinte</label>
+					<div class="col-md-5">
+						<input type="text" class="form-control" th:field="*{datdesdespre}" placeholder="dd/mm/yyyy"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="entitat" class="col-sm-4 control-label">Entitat</label>
+					<div class="col-sm-8">
+						<select class="form-control" th:field="*{entitatId}"
+							th:errorClass="text-danger" >
+							<option value="">Selecciona una entitat...</option>
+							<option th:each="entitat : ${entitats}"
+								th:value="${entitat.id}"
+								th:text="${entitat.descripcio}"></option>
+						</select>
+					</div>
+				</div>
+								 
+				<div class="form-group">
+					<label for="concepte" class="col-sm-4 control-label">Concepte</label>
+					<div class="col-sm-8">
+						<select class="form-control" th:field="*{concepteId}" th:errorClass="text-danger">
+							<option value="">Selecciona un concepte...</option>
+							<option th:each="concepte : ${conceptes}"
+								th:value="${concepte.id}"
+								th:text="${concepte.descripcio}"></option>
+						</select>
+					</div>
+				</div>
 			</div>
-			<button type="submit" class="btn btn-default" th:text="#{btn.cercar}">Cercar</button>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="datfinpre" class="col-sm-7 control-label">Fins data precinte</label>
+					<div class="col-md-5">
+						<input type="text" class="form-control" th:field="*{datfinpre}" placeholder="dd/mm/yyyy"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="datfindespre" class="col-sm-7 control-label">Fins data desprecinte</label>
+					<div class="col-md-5">
+						<input type="text" class="form-control" th:field="*{datfindespre}" placeholder="dd/mm/yyyy"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="motiu.id" class="col-sm-5 control-label">Motiu de desprec.</label>
+					<div class="col-sm-7">
+						<select class="form-control" th:field="*{motiuId}"
+							th:errorClass="text-danger" >
+							<option value="">Selecciona un motiu...</option>
+							<option th:each="motiu : ${motius}"
+								th:value="${motiu.id}"
+								th:selected="${precinte.motiu.id == motiu.id}"
+								th:text="${motiu.descripcio}"></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group pull-right" style="margin-right:1px;">
+  					<button type="submit" class="btn btn-warning">
+  					   <span class="glyphicon glyphicon-search"></span> Cercar
+  				     </button>
+				</div>
+			</div>
 		</form>
-		</div>
 	</div> <!-- row -->
+	<br/>
 	<div class="row">
-		<table class="table table-bordered">
+	  <div class="col-md-12">
+		<table class="table table-condensed table-bordered">
 		 	<thead>
 		 	<tr>
-		 	<td>Codi</td>
-		 	<td>Data introducció</td>
-		 	<td>Entitat</td>
-		 	<td>Concepte</td>
-		 	<td>Referència</td>
-		 	<td>Data desprecinte</td>
+			 	<td>Codi</td>
+			 	<td>Data introducció</td>
+			 	<td>Entitat</td>
+			 	<td>Concepte</td>
+			 	<td>Referència</td>
+			 	<td>Data desprecinte</td>
 		 	</tr>
 		 	</thead>
 		 	<tbody>
-		 	<tr>
-		 	<td>11222</td>
-		 	<td>20-11-2016</td>
-		 	<td>Judicial</td>
-		 	<td>Judjat Numero 1</td>
-		 	<td>expedient:123456</td>
-		 	<td></td>
+		 	<tr th:each="precinte:${precintes}">
+			 	<td th:text="${precinte.id}">11222</td>
+			 	<td th:text="${#dates.format(precinte.datpre, 'dd/MM/yyyy')}">20-11-2016</td>
+			 	<td th:text="${precinte.entitat.id}">Judicial</td>
+			 	<td th:text="${precinte.concepte.descripcio}">Judjat Numero 1</td>
+			 	<td th:text="${precinte.referencia}">expedient:123456</td>
+			 	<td th:text="${precinte.datdes != null?#dates.format(precinte.datdes, 'dd/MM/yyyy'):''}"></td>
 		 	</tr>
 		 	</tbody>
 		 	<tfoot></tfoot>
 		</table>
+	  </div>
 	</div>
 	<th:block th:include="/include/footer :: footer"/>
 </div> <!-- container -->
 </body>
 <th:block th:include="/include/footer-js :: footer-js"/>
+<script type="text/javascript">
+	$(document).ready(function() {
+	   $("#entitatId").change(function() {
+	  	   $("#concepteId").load("/refreshConceptes", 'idEntitat='+$("#entitatId").val());
+	   });
+       $.datepicker.setDefaults( $.datepicker.regional[ "ca" ] );
+		//ini datepicker
+		$("#datdespre").datepicker({
+			  dateFormat: "dd/mm/yy",
+			  firstDay: 1
+		});
+		$("#datfinpre").datepicker({
+			  dateFormat: "dd/mm/yy",
+			  firstDay: 1
+		});
+		$("#datdesdespre").datepicker({
+			  dateFormat: "dd/mm/yy",
+			  firstDay: 1
+		});
+		$("#datfindespre").datepicker({
+			  dateFormat: "dd/mm/yy",
+			  firstDay: 1
+		});
+	
+	});
+</script>
 </html>

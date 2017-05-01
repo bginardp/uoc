@@ -55,7 +55,7 @@
 		                      <li><a th:href="@{'/desprecinte/'+${precinte.id}}" th:if="${precinte.isDesprecintat()}==false">Alta desprecinte</a></li>
 		                      <li><a th:href="@{'/desprecinte/'+${precinte.id}}" th:if="${precinte.isDesprecintat()}==true">Editar Desprecinte</a></li>
 		                      <li role="separator" class="divider"></li>
-		                      <li><a href="#" th:if="${precinte.isDesprecintat()}==true" data-toggle="modal" data-id="${precinte.id}" data-target="#cancelModal">Cancel·la Desprecinte</a></li>
+		                      <li><a href="#" th:if="${precinte.isDesprecintat()}==true" data-toggle="modal" th:attr="data-id=${precinte.id}" data-target="#cancelModal">Cancel·la Desprecinte</a></li>
 		                    </ul>
 		                  </div>
 		                 </td>
@@ -82,20 +82,11 @@
         <h4 class="modal-title" id="myModalLabel">Confirmació operació</h4>
       </div>
       <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="control-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name"/>
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="control-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
+        <p></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Tanca</button>
-        <a th:href="@{'/desprecinte/cancel/'}" class="btn btn-primary">Confirma</a>
+        <a th:href="@{'/desprecinte/cancel/'}" class="btn btn-primary btn-ok">Confirma</a>
       </div>
     </div>
   </div>
@@ -104,12 +95,13 @@
 <script type="text/javascript">
 $('#cancelModal').on('show.bs.modal', function (event) {
 	  var button = $(event.relatedTarget) // Button that triggered the modal
-	  var recipient = button.data('id') // Extract info from data-* attributes
+	  var identificador = button.data('id') // Extract info from data-* attributes
 	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
 	  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 	  var modal = $(this)
-	  modal.find('.modal-title').text('New message to ' + recipient)
-	  modal.find('.modal-body input').val(recipient)
+	  // modal.find('.modal-title').text('New message to ' + recipient)
+	  modal.find('.modal-body p').html('Confirma que vol cancel·lar el desprecinte identificat pel número: '+identificador);
+	  modal.find('.btn-ok').attr('href', '/desprecinte/cancel/'+identificador);
 	})
 
 </script>

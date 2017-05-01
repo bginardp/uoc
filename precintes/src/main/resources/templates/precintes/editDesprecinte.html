@@ -143,16 +143,16 @@
 	</div>	<!-- container -->
 	<th:block th:include="/include/footer-js :: footer-js"/>
 	 <script type="text/javascript">
-            $(function () {
-            	$.datepicker.setDefaults( $.datepicker.regional[ "ca" ] );
-				
-				//ini datepicker
-				$("#datdes").datepicker({
-					  dateFormat: "dd/mm/yy",maxDate:"+1D",
-					  firstDay: 1
-				});
-              
-            });
+           $(function () {
+           	$.datepicker.setDefaults( $.datepicker.regional[ "ca" ] );
+			
+			//ini datepicker
+			$("#datdes").datepicker({
+				  dateFormat: "dd/mm/yy",maxDate:"+0D",
+				  firstDay: 1
+			});
+             
+           });
      </script>
 </body>
 
