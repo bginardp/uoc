@@ -45,7 +45,7 @@ public class VehiclesDao {
 			precinteRepository.save(new Precinte(data,"REF. 123456789","CAS NRO 11234",veh1.getId(),"user","JUDI","JUGJAT01"));
 			precinteRepository.save(new Precinte(data,"REF. 01/12/2015","EXP 12345678",veh1.getId(),"user","RECAP","VOLUN"));
 			data = sdf.parse("01/05/2016");
-			vehicleRepository.save(new Vehicle("2222JCS","Q123112345RT54Y6W","REANULT","LAGUNA",data,laia.getId()));
+			vehicleRepository.save(new Vehicle("2222JCS","Q123112345RT54Y6W","RENAULT","LAGUNA",data,laia.getId()));
 			Vehicle veh2=vehicleRepository.findByMatriculaIgnoreCase("2222JCS");
 			precinteRepository.save(new Precinte(data,"REF. 123456789","CAS NRO 11234",veh2.getId(),"user","JUDI","JUGJAT02"));
 			data = sdf.parse("01/02/2017");

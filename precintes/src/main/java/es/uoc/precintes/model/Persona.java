@@ -51,13 +51,13 @@ public class Persona {
 	
 	public Persona(PersonaDto persona) {
 	this.id=persona.getId();
-	this.nif=persona.getNif();
-	this.nom=persona.getNom();
-	this.ll1per=persona.getLl1per();
-	this.ll2per=persona.getLl2per();
+	this.nif=persona.getNif().toUpperCase();
+	this.nom=persona.getNom().toUpperCase();
+	this.ll1per=persona.getLl1per().toUpperCase();
+	this.ll2per=persona.getLl2per().toUpperCase();
 	this.domicili=persona.getDomicili();
-	this.municipi=persona.getMunicipi();
-	this.provincia=persona.getProvincia();
+	this.municipi=persona.getMunicipi().toUpperCase();
+	this.provincia=persona.getProvincia().toUpperCase();
 	this.codpos=persona.getCodpos();
 	this.telefono=persona.getTelefono();
 	this.email=persona.getEmail();

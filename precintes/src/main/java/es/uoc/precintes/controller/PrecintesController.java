@@ -180,6 +180,7 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 		} else {
 			desprecinte=precService.registerDesprecinte(desprecinte);
 			if (desprecinte.hasErrores()) {
+				model.addAttribute("errors", desprecinte.getErrores());
 				return gotoEditDesprecinte(model, desprecinte);
 			} else {
 			return "redirect:/desprecinte/"+desprecinte.getId()+"?msg=ok";}

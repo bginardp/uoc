@@ -8,31 +8,33 @@ import javax.validation.constraints.Size;
 
 import es.uoc.precintes.dto.EntitatDto;
 
-
-
 @Entity
 @Table(name = "entitats")
 
 public class Entitat {
 	@Id
 	@NotNull
-	@Size(min=4,max=10)
+	@Size(min = 4, max = 10)
 	private String id;
 	@NotNull
-	@Size(min=4,max=40)
+	@Size(min = 4, max = 40)
 	private String descripcio;
 
 	public Entitat() {
 	}
 
 	public Entitat(EntitatDto entitatDto) {
-		this.id = entitatDto.getId();
-		this.descripcio = entitatDto.getDescripcio();
+		this.id = entitatDto.getId().toUpperCase();
+		if (entitatDto.getDescripcio() != null) {
+			this.descripcio = entitatDto.getDescripcio().toUpperCase();
+		}
 	}
 
-	public Entitat(String id, String dem) {
-		this.id = id;
-		this.descripcio = dem;
+	public Entitat(String id, String descripcio) {
+		this.id = id.toUpperCase();
+		if (descripcio != null) {
+			this.descripcio = descripcio.toUpperCase();
+		}
 	}
 
 	public String getId() {
@@ -50,7 +52,5 @@ public class Entitat {
 	public void setDescripcio(String descripcio) {
 		this.descripcio = descripcio;
 	}
-
-	
 
 }

@@ -41,7 +41,7 @@ public class PrecintesDao {
 			builder.or(precinte.datpre.between(datdespre, datfipre));
 		}
 		if (datdesdespre != null && datfidespre != null) {
-			builder.and(precinte.datdes.between(datdespre, datfipre));
+			builder.and(precinte.datdes.between(datdesdespre, datfidespre));
 		}
 		if (!StringUtils.isEmpty(entitatId)) {
 			builder.and(precinte.entitat.id.eq(entitatId));

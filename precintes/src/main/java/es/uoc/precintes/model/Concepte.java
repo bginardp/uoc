@@ -9,13 +9,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import es.uoc.precintes.dto.ConcepteDto;
+
 @Entity
 @Table(name = "conceptes")
 public class Concepte {
 	@EmbeddedId
 	private ConcepteId id;
 	@NotNull
-	@Size(min=4,max=40)
+	@Size(min = 4, max = 40)
 	private String descripcio;
 	@ManyToOne
 	@JoinColumn(name = "entitatId", insertable = false, updatable = false)
@@ -25,13 +26,15 @@ public class Concepte {
 	}
 
 	public Concepte(ConcepteDto concepteDto) {
-		this.id = new ConcepteId(concepteDto.getEntitatId(),concepteDto.getId());
-		this.descripcio = concepteDto.getDescripcio();
+		this.id = new ConcepteId(concepteDto.getEntitatId().toUpperCase(), concepteDto.getId().toUpperCase());
+		if (concepteDto.getDescripcio() != null) {
+			this.descripcio = concepteDto.getDescripcio().toUpperCase();
+		}
 	}
-	
-	public Concepte (String entitat, String concepte, String descripcio) {
-		this.id=new ConcepteId(entitat,concepte);
-		this.descripcio=descripcio;
+
+	public Concepte(String entitat, String concepte, String descripcio) {
+		this.id = new ConcepteId(entitat, concepte);
+		this.descripcio = descripcio;
 	}
 
 	public ConcepteId getId() {
@@ -58,6 +61,4 @@ public class Concepte {
 		this.entitat = entitat;
 	}
 
-
-	
 }

@@ -1,46 +1,52 @@
 <th:block th:fragment="vehicle" xmlns:th="http://www.thymeleaf.org" >
-	<h4><strong>Vehicle</strong></h4>
+	<!-- <h4><strong>Vehicle</strong></h4> -->
+	<div class="box-toolbar">
+	  <div class="btn-group">
+		<a th:href="@{'/vehicle/'+${vehicle.id}}" class="btn btn-default"><em class="glyphicon glyphicon-align-left"></em> Editar</a>
+	  </div>
+	</div>
 	<div class="box-vehicle">
           <div class="row">
-            <div class="col-md-2">
-            	<div class="col-md-6 text-right">Identificador:</div>
-              <div class="col-md-6" th:text="${vehicle.id}"></div>
+            <div class="col-md-3">
+              <div class="col-md-6 text-right">Identificador:</div>
+              <div class="col-md-4" th:text="${vehicle.id}"></div>
             </div>
             <div class="col-md-3">
-                  <div class="col-md-6 text-right">Matricula:</div>
-                  <div class="col-md-4" th:text="${vehicle.matricula}">3345-FFG</div>
+                <div class="col-md-6 text-right">Data Matricula:</div>
+                <div class="col-md-4" th:text="${#dates.format(vehicle.datmat, 'dd/MM/yyyy')}">01/11/1995</div>    
             </div>
-            <div class="col-md-3">
-                  <div class="col-md-6 text-right">Marca i model:</div>
-                  <div class="col-md-6" th:text="${vehicle.marcaModel}">SEAT LEON</div>
+            <div class="col-md-6">
+                <div class="col-md-2 text-right">Titular:</div>
+                <div class="col-md-10" th:text="${vehicle.nomComplet}">JOSE GARCIA PEREZ</div>
             </div>
-            <div class="col-md-4">
-                 <div class="col-md-2 text-right">Titular:</div>
-                 <div class="col-md-10" th:text="${vehicle.nomComplet}">JOSE GARCIA PEREZ</div>
-            </div>
-          </div>
+          </div>  <!-- row -->
           <div class="row">
-          	<div class="col-md-2"><a th:href="@{'/vehicle/'+${vehicle.id}}" class="btn btn-primary">Editar</a>
-          	</div>
-              <div class="col-md-3">
-                 <div class="col-md-6 text-right">Data Matricula:</div>
-                 <div class="col-md-4" th:text="${#dates.format(vehicle.datmat, 'dd/MM/yyyy')}">01/11/1995</div>    
-              </div>
-              <div class="col-md-3">
-                 <div class="col-md-6 text-right">Bastidor:</div>
-                 <div class="col-md-6" th:text="${vehicle.bastidor}">QWQWQWQWQW2121212121</div>                       
-              </div>
-              <div class="col-md-4">
-                  <div class="col-md-2 text-right">Domicili</div>
-                  <div class="col-md-10">
-                    <address>
-                      <strong th:text="${vehicle.persona.domicili}">CE GRANOLLERS num:22 pis:4 porta A</strong><br/>
-                      <span th:text="${vehicle.persona.municipi}">Palma</span><br/>
-                      <span th:text="${vehicle.persona.codpos}">07004</span>
-                      <span th:text="${vehicle.persona.provincia}">ILLES BALEARS</span>
+         	<div class="col-md-3">
+         	   <div class="row">
+                 <div class="col-md-6 text-right">Matricula:</div>
+                 <div class="col-md-4" th:text="${vehicle.matricula}">3345-FFG</div>
+               </div>
+               <div class="row">
+	             <div class="col-md-6 text-right">Bastidor:</div>
+                 <div class="col-md-6" th:text="${vehicle.bastidor}">QWQWQWQWQW2121212121</div>   
+	           </div>
+			 </div>
+			<div class="col-md-3">
+                <div class="col-md-6 text-right">Marca i model:</div>
+                <div class="col-md-6" th:text="${vehicle.marcaModel}">SEAT LEON</div>
+            </div>            
+            <div class="col-md-6">
+                <div class="col-md-2 text-right">Domicili</div>
+                <div class="col-md-10">
+                  <address style="margin-bottom:0px;">
+                    <strong th:text="${vehicle.persona.domicili}">CE GRANOLLERS num:22 pis:4 porta A</strong><br/>
+                    <span th:text="${vehicle.persona.municipi}">Palma</span><br/>
+                    <span th:text="${vehicle.persona.codpos}">07004</span>
+                    <span th:text="${vehicle.persona.provincia}">ILLES BALEARS</span>
 					</address>
-                   </div>
-              </div>
+                 </div>
+            </div>
           </div> <!-- row -->
+         
         </div>  <!-- box vehicle -->
 </th:block>

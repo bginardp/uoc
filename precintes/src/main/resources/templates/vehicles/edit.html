@@ -119,6 +119,10 @@
 					    <div class="col-sm-9">
 					    <input 	class="form-control" 
 					    		th:field="*{persona.nom}" placeholder="nom"/>
+					    		<span 	th:if="${#fields.hasErrors('persona.nom')}" 
+					    		th:text="${#fields.errors('persona.nom')}"
+					    		class="text-danger">
+					    		</span>
 					    </div>
 					</div>
 					
@@ -127,6 +131,10 @@
 					    <div class="col-sm-9">
 					    <input 	class="form-control" 
 					    		th:field="*{persona.ll1per}" placeholder="primer llinatge"/>
+					    		<span 	th:if="${#fields.hasErrors('persona.ll1per')}" 
+					    		th:text="${#fields.errors('persona.ll1per')}"
+					    		class="text-danger">
+					    		</span>
 					    </div>
 					</div>
 					<div class="form-group">
@@ -134,18 +142,22 @@
 					    <div class="col-sm-9">
 					    <input 	class="form-control" 
 					    		th:field="*{persona.ll2per}" placeholder="segon llinatge"/>
+					    		<span 	th:if="${#fields.hasErrors('persona.ll2per')}" 
+					    		th:text="${#fields.errors('persona.ll2per')}"
+					    		class="text-danger">
+					    		</span>
 					    </div>
 					</div>
 					
 					<div class="form-group">
 					    <label 	for="nif" class="col-sm-3 control-label">Nif</label>
 					    <div class="col-sm-9">
-					    <input 	class="form-control" 
-					    		th:field="*{persona.nif}" placeholder="document identificatiu"/>
- 								<span 	th:if="${#fields.hasErrors('persona.nif')}" 
-					    		th:text="${#fields.errors('persona.nif')}"
-					    		class="text-danger">
-								</span>			
+					    	<input 	class="form-control" 
+					    			th:field="*{persona.nif}" placeholder="document identificatiu"/>
+							<span 	th:if="${#fields.hasErrors('persona.nif')}" 
+				    				th:text="${#fields.errors('persona.nif')}"
+				    				class="text-danger">
+							</span>			
 						</div>		    		
 					</div>
 					
@@ -165,7 +177,7 @@
 					<div class="form-group">
 					    <label 	for="email" class="col-sm-3 control-label">email</label>
 					    <div class="col-sm-9">
-					    <input 	class="form-control" 
+					    <input 	type="email" class="form-control" 
 					    		th:field="*{persona.email}"
 					    		th:errorClass="text-danger" placeholder="name@domain.com"/>
 					    <span 	th:if="${#fields.hasErrors('persona.email')}" 
@@ -227,26 +239,17 @@
 				</div>
 				<div class="row">
 					<div class="col-md-3 col-md-offset-2">
-					<button type="submit" class="btn btn-primary ">Guardar</button>
-						<button type="button" onclick="$('#frmRemove').submit();"
-								th:if="${vehicle.id!=null}"
-								class="btn btn-warning">Eliminar</button>
-						<a 		th:href="@{/}"
-								class="btn btn-default">Tornar</a>
+						<button type="submit" class="btn btn-primary ">Guardar</button>
+						<a th:href="@{/}" class="btn btn-default">Tornar</a>
 					</div>
 				</div>			
 			</div> <!-- row -->
-		</form>
-		<!-- formulario para borrar -->
-		<form id="frmRemove"
-			  th:action="@{'/vehicle/remove'}" method="post">
-			<input type="hidden" name="id" th:value="${vehicle.id}"/>
 		</form>
 		<th:block th:include="/include/footer :: footer"/>
 	</div> <!-- container -->
 	
 </body>
-
+<th:block th:include="/include/footer-js :: footer-js"/>
 <script type="text/javascript">
 	$(function(){
 		$.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
@@ -258,5 +261,4 @@
 		});
 	});
 </script>
-<th:block th:include="/include/footer-js :: footer-js"/>
 </html>

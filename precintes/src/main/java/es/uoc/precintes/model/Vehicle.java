@@ -50,14 +50,12 @@ public class Vehicle {
 		this.personaId = personaId;
 	}
 
-
-
 	public Vehicle(VehicleDto vehicle) {
 		this.id=vehicle.getId();
-		this.matricula=vehicle.getMatricula();
-		this.bastidor=vehicle.getBastidor();
-		this.marca=vehicle.getMarca();
-		this.model=vehicle.getModel();
+		this.matricula=vehicle.getMatricula().toUpperCase();
+		this.bastidor=vehicle.getBastidor().toUpperCase();
+		this.marca=vehicle.getMarca().toUpperCase();
+		this.model=vehicle.getModel().toUpperCase();
 		this.datmat=vehicle.getDatmat();
 		this.personaId=vehicle.getPersona().getId();
 		this.persona=Convert.toDao(vehicle.getPersona());

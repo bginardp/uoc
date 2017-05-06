@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import es.uoc.precintes.dao.AdminDao;
 import es.uoc.precintes.dao.PrecintesDao;
@@ -14,6 +15,7 @@ import es.uoc.precintes.dto.PrecinteDto;
 import es.uoc.precintes.model.Precinte;
 import es.uoc.precintes.model.Usuari;
 import es.uoc.precintes.utils.Convert;
+import es.uoc.precintes.utils.ModelUtils;
 
 @Service
 public class PrecintesServiceImpl implements PrecintesService {
@@ -21,7 +23,6 @@ public class PrecintesServiceImpl implements PrecintesService {
 	private PrecintesDao precDao;
 	@Autowired
 	private AdminDao adminDao;
-
 
 	public List<PrecinteDto> findPrecintesByCriteris(Date datdespre, Date datfipre, Date datdesdespre, Date datfidespre,
 			String entitatId, String concepteId, String motiuId) {
@@ -37,12 +38,12 @@ public class PrecintesServiceImpl implements PrecintesService {
 	@Override
 	public Long registerPrecinte(PrecinteDto precinteDto) {
 		Precinte precinte = Convert.toDao(precinteDto);
-		//PrecinteDto precinteDtoNew=new PrecinteDto();		
+		// PrecinteDto precinteDtoNew=new PrecinteDto();
 		try {
 			precDao.savePrecinte(precinte);
-			//precinteDtoNew=Convert.toDto(precinte);
+			// precinteDtoNew=Convert.toDto(precinte);
 		} catch (Exception e) {
-			//TODO: handle error
+			// TODO: handle error
 			e.printStackTrace();
 		}
 		return precinte.getId();
@@ -50,27 +51,37 @@ public class PrecintesServiceImpl implements PrecintesService {
 
 	@Override
 	public PrecinteDto registerDesprecinte(PrecinteDto desprecinteDto) {
-		Precinte precinte = Convert.toDao(desprecinteDto);
-		PrecinteDto precinteDto=new PrecinteDto();
-		try {
-			precDao.savePrecinte(precinte);
-			precinteDto=Convert.toDto(precinte);
-		} catch (Exception e) {
-			e.printStackTrace();
-			ErrorDto error= new ErrorDto(e.getMessage());
-			List<ErrorDto> errors = new ArrayList<ErrorDto>();
-			errors.add(error);
-			precinteDto.setErrores(errors);
+		ErrorDto error = null;
+		if (ModelUtils.afterThat(desprecinteDto.getDatpre(), desprecinteDto.getDatdes())) {
+			error = new ErrorDto(ModelUtils.ERROR_DATA_DESPRECINTE_KEY);
+			desprecinteDto.getErrores().add(error);
 		}
-		return precinteDto;
-		
+		if (StringUtils.isEmpty(desprecinteDto.getMotiu().getId())) {
+			error = new ErrorDto(ModelUtils.ERROR_MOTIU_DESPRECINTE_OBLIGATORI_KEY);
+			desprecinteDto.getErrores().add(error);
+		}
+		if (!desprecinteDto.hasErrores()) {
+			Precinte precinte = Convert.toDao(desprecinteDto);
+			PrecinteDto precinteDto = new PrecinteDto();
+
+			try {
+				precDao.savePrecinte(precinte);
+				precinteDto = Convert.toDto(precinte);
+			} catch (Exception e) {
+				e.printStackTrace();
+				error = new ErrorDto(e.getMessage());
+				desprecinteDto.getErrores().add(error);
+			}
+			return precinteDto;
+		} else {
+			return desprecinteDto;
+		}
 
 	}
 
 	@Override
 	public PrecinteDto getPrecinte(long precinteId) {
 		PrecinteDto precinte = Convert.toDto(precDao.getPrecinte(precinteId));
-		
 		return precinte;
 	}
 
@@ -84,12 +95,11 @@ public class PrecintesServiceImpl implements PrecintesService {
 		}
 	}
 
-	
 	@Override
-	public void cancelDesPrecinte(Long precinteId,String usuariId) {
+	public void cancelDesPrecinte(Long precinteId, String usuariId) {
 		try {
-			Precinte precinte=precDao.getPrecinte(precinteId);
-			Usuari usuari=adminDao.getUsuari(usuariId);
+			Precinte precinte = precDao.getPrecinte(precinteId);
+			Usuari usuari = adminDao.getUsuari(usuariId);
 			precinte.setDatdes(null);
 			precinte.setMotiu(null);
 			precinte.setUsuari(usuari);

@@ -27,8 +27,10 @@ public class Motiu {
 		this.descripcio=descripcio;
 	}
 	public Motiu(MotiuDto motiuDto) {
-		this.id = motiuDto.getId();
-		this.descripcio = motiuDto.getDescripcio();
+		this.id = motiuDto.getId().toUpperCase();
+		if (motiuDto.getDescripcio()!=null) {
+		   this.descripcio = motiuDto.getDescripcio().toUpperCase();
+		}
 	}
 
 	

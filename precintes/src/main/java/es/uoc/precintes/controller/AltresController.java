@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import es.uoc.precintes.dto.AltresForm;
 import es.uoc.precintes.dto.ConcepteDto;
+import es.uoc.precintes.dto.ErrorDto;
 import es.uoc.precintes.dto.PrecinteDto;
 import es.uoc.precintes.service.AdminService;
 import es.uoc.precintes.service.PrecintesService;
+import es.uoc.precintes.utils.ModelUtils;
 
 @Controller
 public class AltresController {
@@ -44,7 +46,7 @@ public class AltresController {
 		List<ConcepteDto> conceptes=new ArrayList<ConcepteDto>();
 		model.addAttribute("entitats", adminService.findAllEntitats());
 		model.addAttribute("conceptes", conceptes);
-		model.addAttribute("entitats", adminService.findAllEntitats());
+		model.addAttribute("motius", adminService.findAllMotius());
 		return "altres";
 	}
 	
@@ -52,10 +54,24 @@ public class AltresController {
 	public String findPrecintesByCriteris (Model model, 
 			@Valid @ModelAttribute("criteris") AltresForm criteris,	BindingResult results) {
 		List<PrecinteDto> precintes=null;
+		ErrorDto error=null;
+		List<ErrorDto> errors = new ArrayList<ErrorDto>();
 		if (!results.hasErrors()) {
-			precintes=precService.findPrecintesByCriteris(criteris.getDatdespre(), criteris.getDatfinpre(), criteris.getDatdesdespre(), 
-			criteris.getDatfindespre(), criteris.getEntitatId(), criteris.getConcepteId(), criteris.getMotiuId());
+			if (ModelUtils.afterThat(criteris.getDatdespre(), criteris.getDatfinpre())) {
+				error = new ErrorDto(ModelUtils.ERROR_RANG_DATES_KEY);
+				errors.add(error);
+			}
+			if (ModelUtils.afterThat(criteris.getDatdesdespre(), criteris.getDatfindespre())) {
+				error = new ErrorDto(ModelUtils.ERROR_RANG_DATES_KEY);
+				errors.add(error);
+			}
+			if (errors.size()==0) {
+			   precintes=precService.findPrecintesByCriteris(criteris.getDatdespre(), criteris.getDatfinpre(), criteris.getDatdesdespre(), 
+			   criteris.getDatfindespre(), criteris.getEntitatId(), criteris.getConcepteId(), criteris.getMotiuId());
+			} else {model.addAttribute("errors", errors);
+			}
 		}
+		
 		model.addAttribute("precintes", precintes);
 		model.addAttribute("criteris",criteris);
 		return gotoAltres(model);

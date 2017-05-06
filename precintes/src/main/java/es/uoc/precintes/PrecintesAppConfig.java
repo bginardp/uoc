@@ -1,10 +1,15 @@
 package es.uoc.precintes;
 
+import java.util.Locale;
+
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 /**
  * clase que defineix la configuració de l'aplicació
@@ -28,4 +33,18 @@ public class PrecintesAppConfig {
 	        container.addErrorPages(error401Page, error404Page, error500Page);
 	   });
 	}
+	
+//	/* configura el locale Catala */
+//	
+//	@Bean
+//    public LocaleResolver localeResolver() {
+//        SessionLocaleResolver slr = new SessionLocaleResolver();
+//        Locale locale=new Locale("ca", "ES");
+//        slr.setDefaultLocale(locale);
+//        return slr;
+//    }
+// 
+ 
+   
+    
 }

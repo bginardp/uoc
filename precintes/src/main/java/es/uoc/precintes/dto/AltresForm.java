@@ -1,8 +1,12 @@
 package es.uoc.precintes.dto;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import es.uoc.precintes.utils.ModelUtils;
 
 public class AltresForm extends BaseDto {
 	@DateTimeFormat(pattern="dd/MM/yyyy")
@@ -18,7 +22,10 @@ public class AltresForm extends BaseDto {
 	private String motiuId;
 	
 	public AltresForm() {
-		
+		Calendar c = new GregorianCalendar();
+		c.add(Calendar.DATE, ModelUtils.DIES_DESDE_DEFECTE);
+		this.datdespre=c.getTime();
+		this.datfinpre=new Date();
 	}
 
 	public Date getDatdespre() {

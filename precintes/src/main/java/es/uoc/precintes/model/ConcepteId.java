@@ -24,8 +24,8 @@ public class ConcepteId implements Serializable {
 	}
 
 	public ConcepteId(String entitatId, String concepteId) {
-		this.entitatId = entitatId;
-		this.id = concepteId;
+		this.entitatId = entitatId.toUpperCase();
+		this.id = concepteId.toUpperCase();
 	}
 
 	public String getEntitatId() {

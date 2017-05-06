@@ -16,6 +16,7 @@ public class PersonaDto extends BaseDto {
 	@NotNull
 	@Size(min = 3, max = 40)
 	private String ll1per;
+	@Size(max = 30)
 	private String ll2per;
 	@NotNull
 	@Size(min = 3, max = 40)
@@ -29,7 +30,9 @@ public class PersonaDto extends BaseDto {
 	@NotNull
 	@Size(min = 3, max = 40)
 	private String provincia;
+	@Size(max = 9)
 	private String telefono;
+	@Size(max = 40)
 	private String email;
 
 	public PersonaDto() {
