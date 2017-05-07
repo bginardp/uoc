@@ -92,7 +92,7 @@
 					<div class="form-group">
 					    <label 	for="datmat" class="col-sm-3 control-label" >Data matriculació</label>
 					    <div class="col-sm-9">
-					    <input 	class="form-control" type="text"
+					    <input 	class="form-control input-date" type="text"
 					    		th:field="*{datmat}"
 					    		th:errorClass="text-danger" placeholder="dd/mm/yyyy"/>
 					    <span 	th:if="${#fields.hasErrors('datmat')}" 
@@ -247,18 +247,20 @@
 		</form>
 		<th:block th:include="/include/footer :: footer"/>
 	</div> <!-- container -->
-	
-</body>
-<th:block th:include="/include/footer-js :: footer-js"/>
-<script type="text/javascript">
-	$(function(){
-		$.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
-		
-		//ini datepicker
-		$("#datmat").datepicker({
-			  dateFormat: "dd/mm/yy",
-			  firstDay: 1
+	<th:block th:include="/include/footer-js :: footer-js"/>
+	<script type="text/javascript">
+	    var cleave = new Cleave('.input-date',{
+	    	date:true, dataPattern:['d','m','Y']
+	    });
+		$(function(){
+			$.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
+			
+			//ini datepicker
+			$("#datmat").datepicker({
+				  dateFormat: "dd/mm/yy",
+				  firstDay: 1
+			});
 		});
-	});
-</script>
+	</script>
+</body>
 </html>

@@ -144,19 +144,20 @@
 		</form>
 		</div> <!-- row -->
 	</div>	<!-- container -->
-	<th:block th:include="/include/footer-js :: footer-js"/>
-	 <script type="text/javascript">
-           $(function () {
-           	$.datepicker.setDefaults( $.datepicker.regional[ "ca" ] );
-			
-			//ini datepicker
-			$("#datdes").datepicker({
-				  dateFormat: "dd/mm/yy",maxDate:"+0D",
-				  firstDay: 1
-			});
-             
-           });
-     </script>
+<th:block th:include="/include/footer-js :: footer-js"/>
+<script type="text/javascript">
+   var cleave = new Cleave('.input-date',{
+		date:true, dataPattern:['d','m','Y']
+	});
+   $(function () {
+      	$.datepicker.setDefaults( $.datepicker.regional[ "ca" ] );
+		//ini datepicker
+		$("#datdes").datepicker({
+		  dateFormat: "dd/mm/yy",maxDate:"+0D",
+		  firstDay: 1
+		});
+   });
+</script>
 </body>
 
 </html>

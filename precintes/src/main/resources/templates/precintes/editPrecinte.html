@@ -47,7 +47,7 @@
 		<div class="form-group">
 			<label for="datpre" class="col-sm-4 control-label">Data de precinte</label>
 			<div class="col-sm-8">
-				<input type="text"	class="form-control"
+				<input type="text"	class="form-control input-date"
 					th:field="*{datpre}" 
 					placeholder="dd/mm/yyyy" autofocus="autofocus"/>
 			</div>
@@ -107,6 +107,9 @@
 </div> <!-- container -->
 <th:block th:include="/include/footer-js :: footer-js"/>
 <script type="text/javascript">
+	var cleave = new Cleave('.input-date',{
+		date:true, dataPattern:['d','m','Y']
+	});	
 	$(document).ready(function() {
 	  // $("#selconcepte").load("/refreshConceptes", 'idEntitat='+$("#entitat\\.id").val());
 	   $("#entitat\\.id").change(function() {

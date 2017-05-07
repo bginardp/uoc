@@ -31,13 +31,13 @@
 				<div class="form-group">
 					<label for="datdespre" class="col-sm-7 control-label">Des de data precinte</label>
 					<div class="col-md-5">
-						<input type="text" class="form-control" th:field="*{datdespre}" placeholder="dd/mm/yyyy"/>
+						<input type="text" class="form-control input-date" th:field="*{datdespre}" placeholder="dd/mm/yyyy"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="datdesdespre" class="col-sm-7 control-label">Des de data desprecinte</label>
+					<label for="datfinpre" class="col-sm-7 control-label">Fins data precinte</label>
 					<div class="col-md-5">
-						<input type="text" class="form-control" th:field="*{datdesdespre}" placeholder="dd/mm/yyyy"/>
+						<input type="text" class="form-control input-date" th:field="*{datfinpre}" placeholder="dd/mm/yyyy"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -67,15 +67,16 @@
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
-					<label for="datfinpre" class="col-sm-7 control-label">Fins data precinte</label>
+					<label for="datdesdespre" class="col-sm-7 control-label">Des de data desprecinte</label>
 					<div class="col-md-5">
-						<input type="text" class="form-control" th:field="*{datfinpre}" placeholder="dd/mm/yyyy"/>
+						<input type="text" class="form-control input-date" th:field="*{datdesdespre}" placeholder="dd/mm/yyyy"/>
 					</div>
 				</div>
+				
 				<div class="form-group">
 					<label for="datfindespre" class="col-sm-7 control-label">Fins data desprecinte</label>
 					<div class="col-md-5">
-						<input type="text" class="form-control" th:field="*{datfindespre}" placeholder="dd/mm/yyyy"/>
+						<input type="text" class="form-control input-date" th:field="*{datfindespre}" placeholder="dd/mm/yyyy"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -133,9 +134,14 @@
 	</div>
 	<th:block th:include="/include/footer :: footer"/>
 </div> <!-- container -->
-</body>
 <th:block th:include="/include/footer-js :: footer-js"/>
 <script type="text/javascript">
+    for(let field of $('.input-date').toArray()){
+      new Cleave(field,{
+    	  date:true, dataPattern:['d','m','Y']
+      });
+	};
+	
 	$(document).ready(function() {
 	   $("#entitatId").change(function() {
 	  	   $("#concepteId").load("/refreshConceptes", 'idEntitat='+$("#entitatId").val());
@@ -161,4 +167,5 @@
 	
 	});
 </script>
+</body>
 </html>
