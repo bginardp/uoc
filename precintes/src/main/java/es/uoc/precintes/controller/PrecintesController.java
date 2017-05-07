@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +21,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import es.uoc.precintes.dto.ConcepteDto;
 import es.uoc.precintes.dto.EntitatDto;
-import es.uoc.precintes.dto.ErrorDto;
 import es.uoc.precintes.dto.PrecinteDto;
 import es.uoc.precintes.dto.UsuariDto;
 import es.uoc.precintes.dto.VehicleDto;
@@ -45,13 +43,8 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 		return "home";
 	}
 
-	@GetMapping(value = "")
-	public String welcome(Model model, Principal principal) {
-		String matric = null;
-		List<ErrorDto> errors = new ArrayList<ErrorDto>();
-		return gotoHome(model, principal, matric, errors);
-	}
-
+	//FIXME: eliminar aquest mètode
+		
 	@RequestMapping("/foo")
 	public String foo() {
 		throw new RuntimeException("Expected exception in controller");
@@ -204,17 +197,5 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 		registry.addViewController("/login").setViewName("login");
 	}
 	
-	private String gotoHome(Model model, Principal principal, String matric, List<ErrorDto> errors) {
-		if (principal != null) {
-			model.addAttribute("usuari", principal.getName());
-		}
-		if (matric != null) {
-			model.addAttribute("matric", matric);
-		}
-		if (errors != null) {
-			model.addAttribute("errors", errors);
-		}
-		return "home";
-	}
-
+	
 }

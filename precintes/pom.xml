@@ -9,13 +9,13 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<springBootVersion>1.4.2.RELEASE</springBootVersion>
+		<springBootVersion>1.4.6.RELEASE</springBootVersion>
 		<querydsl.version>4.1.4</querydsl.version>
 	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.2.RELEASE</version>
+		<version>1.4.6.RELEASE</version>
 	</parent>
 	<dependencies>
 		<dependency>
@@ -38,6 +38,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        <dependency>
+  			<groupId>org.thymeleaf.extras</groupId>
+  			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
