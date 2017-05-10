@@ -136,11 +136,11 @@
 </div> <!-- container -->
 <th:block th:include="/include/footer-js :: footer-js"/>
 <script type="text/javascript">
-    for(let field of $('.input-date').toArray()){
+    $('.input-date').toArray().forEach(function(field){
       new Cleave(field,{
     	  date:true, dataPattern:['d','m','Y']
       });
-	};
+	});
 	
 	$(document).ready(function() {
 	   $("#entitatId").change(function() {

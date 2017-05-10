@@ -9,7 +9,7 @@
      </div>
      <div class="row">
         <div class="col-md-12">
-            <th:block th:include="/include/vehicle :: vehicle"/>
+            <th:block th:include="/include/vehicle :: vehicle('editDesprecinte')"/>
         </div>
      </div>
      <br/>
@@ -99,7 +99,7 @@
 			<div class="form-group">
 				<label for="datdes" class="col-sm-4 control-label">Data desprecinte</label>
 				<div class="col-sm-8">
-					<input type="text"	class="form-control" 
+					<input type="text"	class="form-control input-date" 
 						th:errorClass="text-danger"
 						th:field="*{datdes}" 
 						placeholder="dd/mm/yyyy" autofocus="autofocus"/>

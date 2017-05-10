@@ -21,14 +21,17 @@
 				 th:text="#{precintes.succesful.operation}">
 				 La operaci&oacute;n se ha realizado correctamente
 			</div>
-			<div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
-			    	<ul>
-					    <li th:each="e : ${#fields.detailedErrors()}" th:class="${e.global}? globalerr : fielderr">
-					        <span th:text="${e.global}? '*' : ${e.fieldName}">The field name</span> |
-					        <span th:text="${e.message}">The error message</span>
-					    </li>
-					</ul>
-			</div>
+			<div th:if="${#fields.hasAnyErrors() or (errors!=null and errors.size()>0)}" class="alert alert-danger">
+			   	<ul>
+				    <li th:each="e : ${#fields.detailedErrors()}" th:class="${e.global}? globalerr : fielderr">
+				        <span th:text="${e.global}? '*' : ${e.fieldName}">The field name</span> |
+				        <span th:text="${e.message}">The error message</span>
+				    </li>
+				    <li th:each="e : ${errors}">
+				        <span th:text="#{${e.key}}">The error message</span>
+				    </li>
+				</ul>
+	   		</div>
 		</div>
 		<div class="row">				
 				<div class="col-md-6">	  
@@ -46,7 +49,7 @@
 					    <div class="col-sm-9">
 						    <input 	class="form-control" 
 						    		th:field="*{matricula}"
-						    		th:errorClass="text-danger" autofocus="autofocus" placeholder="NNNNXXX"/>
+						    		th:errorClass="text-danger" autofocus="autofocus" placeholder="NNNNXXX" th:readonly="${vehicle.id!=null}"/>
 						    <span 	th:if="${#fields.hasErrors('matricula')}" 
 						    		th:text="${#fields.errors('matricula')}"
 						    		class="text-danger">

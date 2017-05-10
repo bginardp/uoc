@@ -7,8 +7,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,7 +44,8 @@ public class VehiclesController {
 	}
 
 	@RequestMapping(value = { "/vehicle/{id}", "/vehicle/new" }, method = RequestMethod.GET)
-	public String editVehicle(Model model, @PathVariable(value = "id", required = false) Long vehicleId) {
+	public String editVehicle(Model model, @PathVariable(value = "id", required = false) Long vehicleId,
+			@RequestParam(value = "page", required = false) String page) {
 		VehicleDto vehicle = null;
 		if (vehicleId != null) {
 			vehicle = vehService.getVehicle(vehicleId);
@@ -54,6 +53,7 @@ public class VehiclesController {
 			vehicle = new VehicleDto();
 		}
 
+		//return gotoEdit(model, vehicle, page);
 		return gotoEdit(model, vehicle);
 	}
 
@@ -63,13 +63,18 @@ public class VehiclesController {
 		if (results.hasErrors()) {
 			return gotoEdit(model, vehicle);
 		} else {
-			Long vehId = vehService.saveVehicle(vehicle);
-			return "redirect:/vehicle/" + vehId + "?msg=ok";
+			vehicle = vehService.saveVehicle(vehicle);
+			if (vehicle.hasErrores()) {
+				model.addAttribute("errors", vehicle.getErrores());
+				return gotoEdit(model, vehicle);
+			}
+			return "redirect:/vehicle/" + vehicle.getId() + "?msg=ok";
 		}
 	}
 
 	private String gotoEdit(Model model, VehicleDto vehicle) {
 		model.addAttribute("vehicle", vehicle);
+		// model.addAttribute("page", page);
 		return "vehicles/edit";
 	}
 

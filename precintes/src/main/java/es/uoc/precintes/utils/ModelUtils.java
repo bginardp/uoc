@@ -8,6 +8,9 @@ public class ModelUtils {
   public static final String ERROR_DATA_DESPRECINTE_KEY="error.datadesprecinte.invalid";
   public static final String ERROR_DATA_MAJORACTUAL_KEY="error.datamajoractual.invalid";
   public static final String ERROR_MOTIU_DESPRECINTE_OBLIGATORI_KEY="error.motiusdesprecinte.obligatori";
+  public static final String ERROR_MATRICULA_JAEXISTEIX_KEY="error.vehicle.matricula.existeix";
+  public static final String ERROR_BASTIDOR_JAEXISTEIX_KEY="error.vehicle.bastidor.existeix";
+  public static final String ERROR_DESCONEGUT_KEY="error.descontrolat";
 
   
   public static final int DIES_DESDE_DEFECTE=-3000;

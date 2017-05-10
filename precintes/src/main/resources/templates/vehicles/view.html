@@ -9,7 +9,7 @@
       </div>
     <div class="row">
         <div class="col-md-12">
-            <th:block th:include="/include/vehicle :: vehicle"/>
+            <th:block th:include="/include/vehicle :: vehicle('view')"/>
         </div>
     </div>
     <!-- row -->
@@ -93,7 +93,7 @@
 </div>
 
 <script type="text/javascript">
-$('#cancelModal').on('show.bs.modal', function (event) {
+  $('#cancelModal').on('show.bs.modal', function (event) {
 	  var button = $(event.relatedTarget) // Button that triggered the modal
 	  var identificador = button.data('id') // Extract info from data-* attributes
 	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -103,7 +103,6 @@ $('#cancelModal').on('show.bs.modal', function (event) {
 	  modal.find('.modal-body p').html('Confirma que vol cancel·lar el desprecinte identificat pel número: '+identificador);
 	  modal.find('.btn-ok').attr('href', '/desprecinte/cancel/'+identificador);
 	})
-
 </script>
 
 </body>

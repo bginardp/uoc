@@ -68,6 +68,13 @@ public class VehiclesDao {
 		}
 		return null;
 	}
+	
+	public Vehicle findVehicleByBastidor(String bastidor){
+		if (bastidor != null) {
+			return vehicleRepository.findByBastidorIgnoreCase(bastidor);
+		}
+		return null;
+	}
 
 	public void savePersona(Persona persona) {
 		if (persona != null) {

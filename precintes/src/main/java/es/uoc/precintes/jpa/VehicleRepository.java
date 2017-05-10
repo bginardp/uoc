@@ -8,4 +8,5 @@ import es.uoc.precintes.model.Vehicle;
 
 public interface VehicleRepository extends PagingAndSortingRepository<Vehicle, Long> {
 	Vehicle findByMatriculaIgnoreCase(String matricula);
+	Vehicle findByBastidorIgnoreCase(String bastidor);
 }
