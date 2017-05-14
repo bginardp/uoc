@@ -49,7 +49,7 @@
 					    <div class="col-sm-9">
 						    <input 	class="form-control" 
 						    		th:field="*{matricula}"
-						    		th:errorClass="text-danger" autofocus="autofocus" placeholder="NNNNXXX" th:readonly="${vehicle.id!=null}"/>
+						    		th:errorClass="text-danger" autofocus="autofocus" placeholder="ex. NNNNXXX" th:readonly="${vehicle.id!=null}" maxlength="9"/>
 						    <span 	th:if="${#fields.hasErrors('matricula')}" 
 						    		th:text="${#fields.errors('matricula')}"
 						    		class="text-danger">
@@ -61,7 +61,7 @@
 					    <div class="col-sm-9">
 						    <input 	class="form-control" 
 						    		th:field="*{bastidor}"
-						    		th:errorClass="text-danger" placeholder="xxxxxxxxxxxxxxxxx"/>
+						    		th:errorClass="text-danger" placeholder="ex. WVWZZZ3CZ7P000000" maxlength="17"/>
 						    <span 	th:if="${#fields.hasErrors('bastidor')}" 
 						    		th:text="${#fields.errors('bastidor')}"
 						    		class="text-danger">

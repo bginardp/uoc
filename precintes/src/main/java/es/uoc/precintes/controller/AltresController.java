@@ -37,14 +37,19 @@ public class AltresController {
 	public String listPrecintes(Model model,
 			@Valid @ModelAttribute("criteris") AltresForm criteris) {
 		List<PrecinteDto> precintes=new ArrayList<PrecinteDto>();
-		model.addAttribute("criteris",criteris);
 		model.addAttribute("precintes",precintes);
-		return gotoAltres(model);
+		return gotoAltres(model,criteris);
 	}
 	
-	private String gotoAltres(Model model) {
+	private String gotoAltres(Model model, AltresForm criteris) {
 		List<ConcepteDto> conceptes=new ArrayList<ConcepteDto>();
 		model.addAttribute("entitats", adminService.findAllEntitats());
+		model.addAttribute("criteris",criteris);
+		if (criteris.getEntitatId()!=null) {
+			String entitatId=criteris.getEntitatId();
+			conceptes.add(new ConcepteDto(entitatId,"","Selecciona un concepte ...."));
+			conceptes.addAll(adminService.findConceptesByEntitat(entitatId));
+		}
 		model.addAttribute("conceptes", conceptes);
 		model.addAttribute("motius", adminService.findAllMotius());
 		return "altres";
@@ -54,17 +59,9 @@ public class AltresController {
 	public String findPrecintesByCriteris (Model model, 
 			@Valid @ModelAttribute("criteris") AltresForm criteris,	BindingResult results) {
 		List<PrecinteDto> precintes=null;
-		ErrorDto error=null;
 		List<ErrorDto> errors = new ArrayList<ErrorDto>();
 		if (!results.hasErrors()) {
-			if (ModelUtils.afterThat(criteris.getDatdespre(), criteris.getDatfinpre())) {
-				error = new ErrorDto(ModelUtils.ERROR_RANG_DATES_KEY);
-				errors.add(error);
-			}
-			if (ModelUtils.afterThat(criteris.getDatdesdespre(), criteris.getDatfindespre())) {
-				error = new ErrorDto(ModelUtils.ERROR_RANG_DATES_KEY);
-				errors.add(error);
-			}
+			errors=validaFormulariAltres(criteris);
 			if (errors.size()==0) {
 			   precintes=precService.findPrecintesByCriteris(criteris.getDatdespre(), criteris.getDatfinpre(), criteris.getDatdesdespre(), 
 			   criteris.getDatfindespre(), criteris.getEntitatId(), criteris.getConcepteId(), criteris.getMotiuId());
@@ -73,8 +70,22 @@ public class AltresController {
 		}
 		
 		model.addAttribute("precintes", precintes);
-		model.addAttribute("criteris",criteris);
-		return gotoAltres(model);
+		
+		return gotoAltres(model, criteris);
+	}
+
+	private List<ErrorDto> validaFormulariAltres(AltresForm criteris) {
+		List<ErrorDto> errors = new ArrayList<ErrorDto>();
+		ErrorDto error=null;
+		if (ModelUtils.afterThat(criteris.getDatdespre(), criteris.getDatfinpre())) {
+			error = new ErrorDto(ModelUtils.ERROR_RANG_DATES_KEY);
+			errors.add(error);
+		}
+		if (ModelUtils.afterThat(criteris.getDatdesdespre(), criteris.getDatfindespre())) {
+			error = new ErrorDto(ModelUtils.ERROR_RANG_DATES_KEY);
+			errors.add(error);
+		}
+		return errors;
 	}
 
 }

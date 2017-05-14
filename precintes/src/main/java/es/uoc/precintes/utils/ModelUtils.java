@@ -13,7 +13,7 @@ public class ModelUtils {
   public static final String ERROR_DESCONEGUT_KEY="error.descontrolat";
 
   
-  public static final int DIES_DESDE_DEFECTE=-3000;
+  public static final int DIES_DESDE_DEFECTE=-8000;
   
   public static boolean beforeThat(Date date1, Date date2) {
 	  return date1==null||date2==null?true:date2.before(date1);

@@ -57,7 +57,6 @@
 					<label for="concepte" class="col-sm-4 control-label">Concepte</label>
 					<div class="col-sm-8">
 						<select class="form-control" th:field="*{concepteId}" th:errorClass="text-danger">
-							<option value="">Selecciona un concepte...</option>
 							<option th:each="concepte : ${conceptes}"
 								th:value="${concepte.id}"
 								th:text="${concepte.descripcio}"></option>
@@ -92,6 +91,9 @@
 					</div>
 				</div>
 				<div class="form-group pull-right" style="margin-right:1px;">
+					<button type="button" class="btn btn-default" onclick="this.form.reset();">
+  					   <span class="glyphicon glyphicon-remove"></span> Reset
+  				     </button>
   					<button type="submit" class="btn btn-warning">
   					   <span class="glyphicon glyphicon-search"></span> Cercar
   				     </button>
@@ -114,6 +116,7 @@
 			 	<td>Concepte</td>
 			 	<td>Referència</td>
 			 	<td>Data desprecinte</td>
+			 	<td>Motiu</td>
 		 	</tr>
 		 	</thead>
 	 	 	<tbody>
@@ -126,6 +129,7 @@
 			 	<td th:text="${precinte.concepte.descripcio}">Judjat Numero 1</td>
 			 	<td th:text="${precinte.referencia}">expedient:123456</td>
 			 	<td th:text="${precinte.datdes != null?#dates.format(precinte.datdes, 'dd/MM/yyyy'):''}"></td>
+			 	<td th:text="${precinte.motiu != null?precinte.motiu.id:''}"></td>
 		 	</tr>
 		 	</tbody>
 		 	<tfoot></tfoot>
@@ -144,7 +148,7 @@
 	
 	$(document).ready(function() {
 	   $("#entitatId").change(function() {
-	  	   $("#concepteId").load("/refreshConceptes", 'idEntitat='+$("#entitatId").val());
+	  	   $("#concepteId").load("/refreshAltresConceptes", 'idEntitat='+$("#entitatId").val());
 	   });
        $.datepicker.setDefaults( $.datepicker.regional[ "ca" ] );
 		//ini datepicker

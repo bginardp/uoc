@@ -19,7 +19,7 @@ public class VehicleDto extends BaseDto{
   @Size(min=7,max=10)
   private String matricula;
   @NotNull
-  @Size(min=10,max=21)
+  @Size(min=1,max=17)
   private String bastidor;
   @NotNull
   @Size(min=2,max=40)

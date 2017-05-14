@@ -24,6 +24,12 @@ public class ConcepteDto {
 		this.entitatId = entitatId;
 	}
 
+	public ConcepteDto(String entitatId, String id, String descripcio) {
+		this.entitatId = entitatId;
+		this.id=id;
+		this.descripcio=descripcio;
+	}
+	
 	public ConcepteDto(Concepte concepte) {
 		this.entitatId = concepte.getId().getEntitatId();
 		this.id = concepte.getId().getId();

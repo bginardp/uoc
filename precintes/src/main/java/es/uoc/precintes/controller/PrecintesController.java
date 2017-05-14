@@ -84,13 +84,24 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 	}
 	
 
-	@RequestMapping(value="/refreshConceptes", method=RequestMethod.GET) 
-	public String refreshConceptes(@RequestParam("idEntitat") String entitatId, Model model) {
+	@RequestMapping(value="/refreshAltresConceptes", method=RequestMethod.GET) 
+	public String refreshAltresConceptes(@RequestParam("idEntitat") String entitatId, Model model) {
 		model.addAttribute("concepte",new ConcepteDto());
-		model.addAttribute("conceptes",adminService.findConceptesByEntitat(entitatId));
+		List<ConcepteDto> conceptes=new ArrayList<ConcepteDto>();
+		conceptes.add(new ConcepteDto(entitatId,"","Selecciona un concepte ...."));
+		conceptes.addAll(adminService.findConceptesByEntitat(entitatId));
+		
+		model.addAttribute("conceptes",conceptes);
 		return "/precintes/editPrecinte :: #selconcepte";
 	}
 	
+	@RequestMapping(value="/refreshConceptes", method=RequestMethod.GET) 
+	public String refreshConceptes(@RequestParam("idEntitat") String entitatId, Model model) {
+		model.addAttribute("concepte",new ConcepteDto());
+		List<ConcepteDto> conceptes=adminService.findConceptesByEntitat(entitatId);
+		model.addAttribute("conceptes",conceptes);
+		return "/precintes/editPrecinte :: #selconcepte";
+	}
 	
 	@RequestMapping("/precinte/view/{id}")
 	public String showPrecinte(Model model, Principal principal,

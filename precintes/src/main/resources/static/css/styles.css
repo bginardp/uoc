@@ -59,6 +59,7 @@
 }
 
 .box-vehicle{
+	border-radius: 25px;
 	background-color: #D3D3D3;
 }
 
@@ -71,3 +72,8 @@
     height: 65px;
     margin-bottom:5px;
 }
+
+.box-toolbar{
+	 margin-bottom:5px;
+}
+

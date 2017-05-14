@@ -163,13 +163,5 @@ public class AdminController {
 		return "redirect:/admin/conceptes/"+entitatId;
 	}
 	
-//	@RequestMapping(value = "/ajax/conceptes/{entitatId}", method = RequestMethod.GET, produces="application/json")
-//	@ResponseBody
-//	public List<ConcepteDto> getConceptesAsJson(@PathVariable(value = "entitatId", required = true) String entitatId) {
-//		return adminService.findConceptesByEntitat(entitatId);
-//	}
-	
-	
-	
 	
 }
