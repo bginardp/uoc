@@ -73,7 +73,7 @@
 					    <div class="col-sm-9">
 					    <input 	class="form-control" 
 					    		th:field="*{marca}"
-					    		th:errorClass="text-danger" placeholder="marca"/>
+					    		th:errorClass="text-danger" placeholder="ex. SEAT"/>
 					    <span 	th:if="${#fields.hasErrors('marca')}" 
 					    		th:text="${#fields.errors('marca')}"
 					    		class="text-danger">
@@ -85,7 +85,7 @@
 					    <div class="col-sm-9">
 					    <input 	class="form-control" 
 					    		th:field="*{model}"
-					    		th:errorClass="text-danger" placeholder="model"/>
+					    		th:errorClass="text-danger" placeholder="ex. IBIZA"/>
 					    <span 	th:if="${#fields.hasErrors('model')}" 
 					    		th:text="${#fields.errors('model')}"
 					    		class="text-danger">
@@ -195,7 +195,7 @@
 					    <div class="col-sm-9">
 					    <input 	class="form-control" 
 					    		th:field="*{persona.domicili}"
-					    		th:errorClass="text-danger" placeholder="nom carrer, numero pis porta"/>
+					    		th:errorClass="text-danger" placeholder="ex. ce Picornell núm: 26 pis 2 porta A"/>
 					    <span 	th:if="${#fields.hasErrors('persona.domicili')}" 
 					    		th:text="${#fields.errors('persona.domicili')}"
 					    		class="text-danger"></span>
@@ -206,7 +206,7 @@
 					    <div class="col-sm-9">
 					    <input 	class="form-control" 
 					    		th:field="*{persona.municipi}"
-					    		th:errorClass="text-danger" placeholder="nom de municipi"/>
+					    		th:errorClass="text-danger" placeholder="ex. PALMA"/>
 					    <span 	th:if="${#fields.hasErrors('persona.municipi')}" 
 					    		th:text="${#fields.errors('persona.municipi')}"
 					    		class="text-danger">
@@ -232,7 +232,7 @@
 					    <div class="col-sm-9">
 					    <input 	class="form-control" 
 					    		th:field="*{persona.provincia}"
-					    		th:errorClass="text-danger" placeholder="nom provincia"/>
+					    		th:errorClass="text-danger" placeholder="ex. ILLES BALEARS"/>
 					    <span 	th:if="${#fields.hasErrors('persona.provincia')}" 
 					    		th:text="${#fields.errors('persona.provincia')}"
 					    		class="text-danger">

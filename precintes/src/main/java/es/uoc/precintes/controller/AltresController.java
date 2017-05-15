@@ -61,20 +61,17 @@ public class AltresController {
 		List<PrecinteDto> precintes=null;
 		List<ErrorDto> errors = new ArrayList<ErrorDto>();
 		if (!results.hasErrors()) {
-			errors=validaFormulariAltres(criteris);
-			if (errors.size()==0) {
+			criteris=validaFormulariAltres(criteris);
+			if (!criteris.hasErrores()) {
 			   precintes=precService.findPrecintesByCriteris(criteris.getDatdespre(), criteris.getDatfinpre(), criteris.getDatdesdespre(), 
 			   criteris.getDatfindespre(), criteris.getEntitatId(), criteris.getConcepteId(), criteris.getMotiuId());
-			} else {model.addAttribute("errors", errors);
-			}
+			} 
 		}
-		
 		model.addAttribute("precintes", precintes);
-		
 		return gotoAltres(model, criteris);
 	}
 
-	private List<ErrorDto> validaFormulariAltres(AltresForm criteris) {
+	private AltresForm validaFormulariAltres(AltresForm criteris) {
 		List<ErrorDto> errors = new ArrayList<ErrorDto>();
 		ErrorDto error=null;
 		if (ModelUtils.afterThat(criteris.getDatdespre(), criteris.getDatfinpre())) {
@@ -85,7 +82,8 @@ public class AltresController {
 			error = new ErrorDto(ModelUtils.ERROR_RANG_DATES_KEY);
 			errors.add(error);
 		}
-		return errors;
+		criteris.setErrores(errors);
+		return criteris;
 	}
 
 }
