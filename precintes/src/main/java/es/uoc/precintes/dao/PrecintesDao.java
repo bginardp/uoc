@@ -60,11 +60,6 @@ public class PrecintesDao {
 		return list;
 	}
 
-	public List<Precinte> findPrecintesByCriteris(String criteris) {
-		List<Precinte> precintes = null;
-		return precintes;
-	}
-
 	public List<Precinte> findPrecintesByVehicleId(Long idVehicle) {
 		List<Precinte> precintes = precinteRepository.findByVehicleId(idVehicle);
 		return precintes;

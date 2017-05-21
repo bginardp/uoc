@@ -45,8 +45,7 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 		return "home";
 	}
 
-	// FIXME: eliminar aquest mètode. Només per provar com actua Spring quan es
-	// produeix una excepció
+	// FIXME: eliminar aquest mètode. Només per provar com actua Spring quan es produeix una excepció
 
 	@RequestMapping("/foo")
 	public String foo() {
@@ -66,10 +65,10 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 			precinte.setVehicle(vehService.getVehicle(vehicleId));
 			precinte.setEntitat(adminService.getEntitat(ModelUtils.DEFAULTENTITAT));
 		}
-		return gotoEdit(model, precinte);
+		return gotoEdit(model, precinte, principal);
 	}
 
-	private String gotoEdit(Model model, PrecinteDto precinte) {
+	private String gotoEdit(Model model, PrecinteDto precinte, Principal principal) {
 		VehicleDto vehicle = precinte.getVehicle();
 		List<EntitatDto> entitats = adminService.findAllEntitats();
 		model.addAttribute("entitats", entitats);
@@ -82,6 +81,7 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 		model.addAttribute("conceptes", conceptes);
 		model.addAttribute("vehicle", vehicle);
 		model.addAttribute("precinte", precinte);
+		model.addAttribute("usuari", principal.getName());
 		return "precintes/editPrecinte";
 	}
 
@@ -119,6 +119,7 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 		model.addAttribute("conceptes", conceptes);
 		model.addAttribute("vehicle", vehicle);
 		model.addAttribute("motius", adminService.findAllMotius());
+		model.addAttribute("usuari", principal.getName());
 		return "precintes/viewPrecinte";
 	}
 
@@ -131,7 +132,7 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 		Long vehicleId = precinte.getVehicle().getId();
 		precinte.setVehicle(vehService.getVehicle(vehicleId));
 		if (results.hasErrors()) {
-			return gotoEdit(model, precinte);
+			return gotoEdit(model, precinte, principal);
 		} else {
 			String entitatId = precinte.getEntitat().getId();
 			if (precinte.getConcepte() != null) {
@@ -158,10 +159,10 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 		UsuariDto usuari = new UsuariDto();
 		usuari.setId(principal.getName());
 		desprecinte.setUsuari(usuari);
-		return gotoEditDesprecinte(model, desprecinte);
+		return gotoEditDesprecinte(model, desprecinte, principal);
 	}
 
-	private String gotoEditDesprecinte(Model model, PrecinteDto desprecinte) {
+	private String gotoEditDesprecinte(Model model, PrecinteDto desprecinte, Principal principal) {
 		VehicleDto vehicle = desprecinte.getVehicle();
 		List<EntitatDto> entitats = adminService.findAllEntitats();
 		model.addAttribute("entitats", entitats);
@@ -170,6 +171,7 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 		model.addAttribute("vehicle", vehicle);
 		model.addAttribute("precinte", desprecinte);
 		model.addAttribute("motius", adminService.findAllMotius());
+		model.addAttribute("usuari", principal.getName());
 		return "precintes/editDesPrecinte";
 	}
 
@@ -179,12 +181,12 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 		Long vehicleId = desprecinte.getVehicle().getId();
 		desprecinte.setVehicle(vehService.getVehicle(vehicleId));
 		if (results.hasErrors()) {
-			return gotoEditDesprecinte(model, desprecinte);
+			return gotoEditDesprecinte(model, desprecinte, principal);
 		} else {
 			desprecinte = validaCampsDesprecinte(desprecinte);
 			if (desprecinte.hasErrores()) {
 				model.addAttribute("errors", desprecinte.getErrores());
-				return gotoEditDesprecinte(model, desprecinte);
+				return gotoEditDesprecinte(model, desprecinte, principal);
 			} else {
 				desprecinte = precService.registerDesprecinte(desprecinte);
 				return "redirect:/desprecinte/" + desprecinte.getId() + "?msg=ok";

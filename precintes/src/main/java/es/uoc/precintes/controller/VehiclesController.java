@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.uoc.precintes.dto.AltresForm;
 import es.uoc.precintes.dto.ErrorDto;
 import es.uoc.precintes.dto.PrecinteDto;
 import es.uoc.precintes.dto.VehicleDto;
 import es.uoc.precintes.service.PrecintesService;
 import es.uoc.precintes.service.VehiclesService;
+import es.uoc.precintes.utils.ModelUtils;
 
 @Controller
 public class VehiclesController {
@@ -53,7 +55,7 @@ public class VehiclesController {
 			vehicle = new VehicleDto();
 		}
 
-		//return gotoEdit(model, vehicle, page);
+		// return gotoEdit(model, vehicle, page);
 		return gotoEdit(model, vehicle);
 	}
 
@@ -63,8 +65,14 @@ public class VehiclesController {
 		if (results.hasErrors()) {
 			return gotoEdit(model, vehicle);
 		} else {
-			vehicle = vehService.saveVehicle(vehicle);
-			if (vehicle.hasErrores()) {
+			vehicle = validaVehiclesForm(vehicle);
+			if (!vehicle.hasErrores()) {
+				vehicle = vehService.saveVehicle(vehicle);
+				if (vehicle.hasErrores()) {
+					model.addAttribute("errors", vehicle.getErrores());
+					return gotoEdit(model, vehicle);
+				}
+			} else {
 				model.addAttribute("errors", vehicle.getErrores());
 				return gotoEdit(model, vehicle);
 			}
@@ -97,6 +105,7 @@ public class VehiclesController {
 				return gotoHome(model, principal, matric, vehicle.getErrores());
 			} else {
 				List<PrecinteDto> precintes = precService.findPrecintesByVehicleId(vehicle.getId());
+				model.addAttribute("usuari", principal.getName());
 				model.addAttribute("vehicle", vehicle);
 				model.addAttribute("precintes", precintes);
 				return "/vehicles/view";
@@ -121,6 +130,17 @@ public class VehiclesController {
 			model.addAttribute("errors", errors);
 		}
 		return "home";
+	}
+
+	private VehicleDto validaVehiclesForm(VehicleDto vehicle) {
+		List<ErrorDto> errors = new ArrayList<ErrorDto>();
+		ErrorDto error = null;
+		if (!ModelUtils.matriculaValida(vehicle.getMatricula().toUpperCase())) {
+			error = new ErrorDto(ModelUtils.ERROR_MATRICULA_FORMAT_INVALID_KEY);
+			errors.add(error);
+		}
+		vehicle.setErrores(errors);
+		return vehicle;
 	}
 
 }

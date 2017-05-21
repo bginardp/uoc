@@ -32,7 +32,6 @@ public class TestPrecintes {
 			datdespre = sdf.parse("01/02/2000");
 			datfipre = sdf.parse("01/05/2016");
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		Date datdesdespre = null;
@@ -44,8 +43,6 @@ public class TestPrecintes {
 				datfidespre, entitatId, concepteId, motiuId);
 		precintes.forEach(e -> System.out.println(e));
 		assert (precintes.size() > 0);
-
-		// fail("Not yet implemented");
 	}
 
 }

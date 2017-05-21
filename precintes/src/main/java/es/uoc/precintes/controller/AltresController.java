@@ -1,5 +1,6 @@
 package es.uoc.precintes.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +35,10 @@ public class AltresController {
 	}
 	
 	@RequestMapping("/altres")
-	public String listPrecintes(Model model,
+	public String listPrecintes(Model model,Principal principal,
 			@Valid @ModelAttribute("criteris") AltresForm criteris) {
 		List<PrecinteDto> precintes=new ArrayList<PrecinteDto>();
+		model.addAttribute("usuari", principal.getName());
 		model.addAttribute("precintes",precintes);
 		return gotoAltres(model,criteris);
 	}
@@ -56,10 +58,9 @@ public class AltresController {
 	}
 	
 	@PostMapping(value="/altres/search")
-	public String findPrecintesByCriteris (Model model, 
+	public String findPrecintesByCriteris (Model model, Principal principal,
 			@Valid @ModelAttribute("criteris") AltresForm criteris,	BindingResult results) {
 		List<PrecinteDto> precintes=null;
-		List<ErrorDto> errors = new ArrayList<ErrorDto>();
 		if (!results.hasErrors()) {
 			criteris=validaFormulariAltres(criteris);
 			if (!criteris.hasErrores()) {
@@ -68,6 +69,7 @@ public class AltresController {
 			} 
 		}
 		model.addAttribute("precintes", precintes);
+		model.addAttribute("usuari", principal.getName());
 		return gotoAltres(model, criteris);
 	}
 
