@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import es.uoc.precintes.dto.AltresForm;
 import es.uoc.precintes.dto.ErrorDto;
 import es.uoc.precintes.dto.PrecinteDto;
 import es.uoc.precintes.dto.VehicleDto;

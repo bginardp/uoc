@@ -45,13 +45,6 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 		return "home";
 	}
 
-	// FIXME: eliminar aquest mètode. Només per provar com actua Spring quan es produeix una excepció
-
-	@RequestMapping("/foo")
-	public String foo() {
-		throw new RuntimeException("Expected exception in controller");
-	}
-
 	@RequestMapping(value = { "/precinte/{id}", "/precinte/{vehicleId}/new" }, method = RequestMethod.GET)
 	public String getPrecinte(Model model, Principal principal,
 			@PathVariable(value = "id", required = false) Long precinteId,

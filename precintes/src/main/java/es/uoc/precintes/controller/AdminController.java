@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.uoc.precintes.dto.ConcepteDto;
 import es.uoc.precintes.dto.EntitatDto;
 import es.uoc.precintes.dto.MotiuDto;
 import es.uoc.precintes.service.AdminService;
-import es.uoc.precintes.service.PrecintesService;
 
 @Controller
 @RequestMapping("/admin")
