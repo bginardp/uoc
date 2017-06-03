@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:include="/include/head :: head('Altres Recerques')"/>
+<th:block th:include="include/head :: head('Altres Recerques')"/>
 <style>
 .form-group {
   margin-bottom: 2px;
@@ -8,7 +8,7 @@
 </style>
 <body>
 <div class="container">
-	<th:block th:include="/include/navbar :: navbar"/>
+	<th:block th:include="include/navbar :: navbar"/>
 	<div class="box-title">
          <h2 th:text="#{altres.titol}"></h2>
      </div>
@@ -136,9 +136,9 @@
 		</table>
 	  </div>
 	</div>
-	<th:block th:include="/include/footer :: footer"/>
+	<th:block th:include="include/footer :: footer"/>
 </div> <!-- container -->
-<th:block th:include="/include/footer-js :: footer-js"/>
+<th:block th:include="include/footer-js :: footer-js"/>
 <script type="text/javascript">
     $('.input-date').toArray().forEach(function(field){
       new Cleave(field,{

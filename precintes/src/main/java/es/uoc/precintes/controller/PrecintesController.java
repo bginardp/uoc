@@ -86,7 +86,7 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 		conceptes.addAll(adminService.findConceptesByEntitat(entitatId));
 
 		model.addAttribute("conceptes", conceptes);
-		return "/precintes/editPrecinte :: #selconcepte";
+		return "precintes/editPrecinte :: #selconcepte";
 	}
 
 	@RequestMapping(value = "/refreshConceptes", method = RequestMethod.GET)
@@ -94,7 +94,7 @@ public class PrecintesController extends WebMvcConfigurerAdapter {
 		model.addAttribute("concepte", new ConcepteDto());
 		List<ConcepteDto> conceptes = adminService.findConceptesByEntitat(entitatId);
 		model.addAttribute("conceptes", conceptes);
-		return "/precintes/editPrecinte :: #selconcepte";
+		return "precintes/editPrecinte :: #selconcepte";
 	}
 
 	@RequestMapping("/precinte/view/{id}")

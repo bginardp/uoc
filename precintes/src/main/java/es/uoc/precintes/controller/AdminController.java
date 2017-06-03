@@ -62,7 +62,7 @@ public class AdminController {
 			return gotoEditEntitat(model, entitat);
 		} else {
 			adminService.saveEntitat(entitat);
-			return "redirect:/admin/entitat/"+entitat.getId() + "?msg=ok";
+			return "redirect:/admin/entitat/"+entitat.getId().toUpperCase() + "?msg=ok";
 		}
 	}
 
@@ -105,7 +105,7 @@ public class AdminController {
 			return gotoEditMotiu(model, motiu);
 		} else {
 			adminService.saveMotiu(motiu);
-			return "redirect:/admin/motiu/"+motiu.getId() + "?msg=ok";
+			return "redirect:/admin/motiu/"+motiu.getId().toUpperCase() + "?msg=ok";
 		}
 	}
 
@@ -151,7 +151,7 @@ public class AdminController {
 			return gotoEditConcepte(model, concepte);
 		} else {
 			adminService.saveConcepte(concepte);
-			return "redirect:/admin/concepte/"+concepte.getEntitatId()+"/"+concepte.getId() + "?msg=ok";
+			return "redirect:/admin/concepte/"+concepte.getEntitatId()+"/"+concepte.getId().toUpperCase() + "?msg=ok";
 		}
 	}
 

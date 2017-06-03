@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:include="/include/head :: head('Entitats')"/>
+<th:block th:include="include/head :: head('Entitats')"/>
 <body>
  <div class="container">
-	<th:block th:include="/include/navbar :: navbar"/>
+	<th:block th:include="include/navbar :: navbar"/>
 		<h2 th:text="#{conceptes.list.titol}">Llista de conceptes <small th:text="${entitat}"></small></h2>
 		<div class="row">		 	
 			<div class="col-md-6 col-md-offset-2">
@@ -35,9 +35,9 @@
 							th:text="#{btn.tornar}">Volver</a>
 			</div>
 		</div> <!-- row -->
-		<th:block th:include="/include/footer :: footer"/>
+		<th:block th:include="include/footer :: footer"/>
 	</div> <!-- container -->
 	
 </body>
-<th:block th:include="/include/footer-js :: footer-js"/>
+<th:block th:include="include/footer-js :: footer-js"/>
 </html>

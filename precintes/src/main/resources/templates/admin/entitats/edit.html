@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:include="/include/head :: head('Entitat')"/>
+<th:block th:include="include/head :: head('Entitat')"/>
 <body>
 	<div class="container">
-		<th:block th:include="/include/navbar :: navbar"/>
+		<th:block th:include="include/navbar :: navbar"/>
 		<h2 th:text="#{entitats.edit.titol}">Formulario</h2>
 		<hr/>
 		<div class="row">
@@ -59,9 +59,9 @@
 				</form>
 			</div>
 		</div> <!-- row -->
-		<th:block th:include="/include/footer :: footer"/>
+		<th:block th:include="include/footer :: footer"/>
 	</div> <!-- container -->
 	
 </body>
-<th:block th:include="/include/footer-js :: footer-js"/>
+<th:block th:include="include/footer-js :: footer-js"/>
 </html>

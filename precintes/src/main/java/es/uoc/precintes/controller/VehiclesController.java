@@ -107,7 +107,7 @@ public class VehiclesController {
 				model.addAttribute("usuari", principal.getName());
 				model.addAttribute("vehicle", vehicle);
 				model.addAttribute("precintes", precintes);
-				return "/vehicles/view";
+				return "vehicles/view";
 			}
 		} else {
 			ErrorDto e = new ErrorDto("error.nomatric");

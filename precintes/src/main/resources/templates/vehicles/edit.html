@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:include="/include/head :: head('Vehicle')"/>
+<th:block th:include="include/head :: head('Vehicle')"/>
 <head>
 <style type="text/css">
 .form-group {
@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="container">
-	<th:block th:include="/include/navbar :: navbar"/>
+	<th:block th:include="include/navbar :: navbar"/>
 	<h3 th:text="#{vehicles.edit.titol}">Formulari de vehicles</h3>
 	<form class="form-horizontal" th:object="${vehicle}" 
 			  th:action="@{/vehicle/save}"
@@ -248,9 +248,9 @@
 				</div>			
 			</div> <!-- row -->
 		</form>
-		<th:block th:include="/include/footer :: footer"/>
+		<th:block th:include="include/footer :: footer"/>
 	</div> <!-- container -->
-	<th:block th:include="/include/footer-js :: footer-js"/>
+	<th:block th:include="include/footer-js :: footer-js"/>
 	<script type="text/javascript">
 	    var cleave = new Cleave('.input-date',{
 	    	date:true, dataPattern:['d','m','Y']

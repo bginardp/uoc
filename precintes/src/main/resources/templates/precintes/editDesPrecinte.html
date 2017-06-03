@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:include="/include/head :: head('Alta desprecinte')"/>
+<th:block th:include="include/head :: head('Alta desprecinte')"/>
 <body>
 	<div class="container">
-	<th:block th:include="/include/navbar :: navbar"/>
+	<th:block th:include="include/navbar :: navbar"/>
 	<div class="box-title">
          <h2 th:text="#{desprecinte.titol}"></h2>
      </div>
      <div class="row">
         <div class="col-md-12">
-            <th:block th:include="/include/vehicle :: vehicle('editDesprecinte')"/>
+            <th:block th:include="include/vehicle :: vehicle('editDesprecinte')"/>
         </div>
      </div>
      <br/>
@@ -143,8 +143,9 @@
 		</div>	<!-- col -->
 		</form>
 		</div> <!-- row -->
+		<th:block th:include="include/footer :: footer"/>
 	</div>	<!-- container -->
-<th:block th:include="/include/footer-js :: footer-js"/>
+<th:block th:include="include/footer-js :: footer-js"/>
 <script type="text/javascript">
    var cleave = new Cleave('.input-date',{
 		date:true, dataPattern:['d','m','Y']
