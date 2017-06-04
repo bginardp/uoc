@@ -18,7 +18,11 @@ import es.uoc.precintes.dto.ConcepteDto;
 import es.uoc.precintes.dto.EntitatDto;
 import es.uoc.precintes.dto.MotiuDto;
 import es.uoc.precintes.service.AdminService;
-
+/**
+ * Classe tipus Controller que gestiona les peticions de admin
+ * @author BERNAT1
+ *
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminController {

@@ -30,7 +30,8 @@
 						    <input 	class="form-control" 
 						    		th:field="*{id}" autofocus="autofocus"
 						    		th:errorClass="text-danger" 
-						    		placeholder="introduir l'identificador"/>
+						    		placeholder="introduir l'identificador"
+						    		th:readonly="*{id!=null}"/>
 						</div>
 						<div class="form-group">
 						    <label 	for="dem">Descripció</label>

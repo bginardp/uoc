@@ -24,7 +24,11 @@ import es.uoc.precintes.dto.VehicleDto;
 import es.uoc.precintes.service.PrecintesService;
 import es.uoc.precintes.service.VehiclesService;
 import es.uoc.precintes.utils.ModelUtils;
-
+/**
+ * Classe que gestiona les peticions sobre els vehicles.
+ * @author BERNAT1
+ *
+ */
 @Controller
 public class VehiclesController {
 	@Autowired

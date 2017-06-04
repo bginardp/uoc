@@ -21,7 +21,11 @@ import es.uoc.precintes.dto.PrecinteDto;
 import es.uoc.precintes.service.AdminService;
 import es.uoc.precintes.service.PrecintesService;
 import es.uoc.precintes.utils.ModelUtils;
-
+/**
+ * Classe que gestiona les peticion de les consultes Altres
+ * @author BERNAT1
+ *
+ */
 @Controller
 public class AltresController {
 	@Autowired

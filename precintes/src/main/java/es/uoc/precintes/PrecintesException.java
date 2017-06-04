@@ -3,7 +3,7 @@ package es.uoc.precintes;
 public class PrecintesException extends Exception {
 
 	/**
-	 * 
+	 *  Classe que maneja les excepcions de l'aplicació
 	 */
 	private static final long serialVersionUID = 1L;
 	private String key;

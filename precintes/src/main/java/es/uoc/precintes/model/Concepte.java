@@ -28,7 +28,7 @@ public class Concepte {
 	public Concepte(ConcepteDto concepteDto) {
 		this.id = new ConcepteId(concepteDto.getEntitatId().toUpperCase(), concepteDto.getId().toUpperCase());
 		if (concepteDto.getDescripcio() != null) {
-			this.descripcio = concepteDto.getDescripcio().toUpperCase();
+			this.descripcio = concepteDto.getDescripcio();
 		}
 	}
 

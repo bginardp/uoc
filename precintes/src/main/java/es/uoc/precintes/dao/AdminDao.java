@@ -125,7 +125,12 @@ public class AdminDao {
 	public void removeConcepte(String entitatId, String concepteId) {
 		if (entitatId != null && concepteId != null) {
 			ConcepteId concepteKeyId = new ConcepteId(entitatId,concepteId);
-			concepteRepository.delete(concepteKeyId);
+			try {
+				concepteRepository.delete(concepteKeyId);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
 		}
 
 	}

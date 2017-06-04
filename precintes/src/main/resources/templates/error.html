@@ -7,10 +7,10 @@
 		<div id="created" th:text="${#dates.format(timestamp)}">July 11,
 			2012 2:17:16 PM CDT</div>
 		<div class="bg-danger">
-			There was an unexpected error (type=<span th:text="${error}">Bad</span>, status=<span th:text="${status}">500</span>).
+			S'ha produit una situació d'error no controlada (de tipus=<span th:text="${error}">Bad</span>).
 		</div>
-		<div th:text="${message}" class="bg-danger">Fake content</div>
-		<div class="bg-info">
+		<div th:text="${url}" class="bg-danger">Fake content</div>
+		<div class="bg-info" th:text="${message}">
 			Please contact the operator with the above information.
 		</div>
 	</div>

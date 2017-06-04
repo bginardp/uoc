@@ -30,7 +30,11 @@ import es.uoc.precintes.service.AdminService;
 import es.uoc.precintes.service.PrecintesService;
 import es.uoc.precintes.service.VehiclesService;
 import es.uoc.precintes.utils.ModelUtils;
-
+/**
+ * Classe que gestiona les peticions de les operacions de precintes
+ * @author BERNAT1
+ *
+ */
 @Controller
 public class PrecintesController extends WebMvcConfigurerAdapter {
 	@Autowired
